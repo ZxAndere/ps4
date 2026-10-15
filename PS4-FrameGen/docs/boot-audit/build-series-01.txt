@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/workspace/ps4/PS4-FrameGen/boot-diagnostics/build.py", line 76, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/workspace/ps4/PS4-FrameGen/boot-diagnostics/build.py", line 68, in main
+    candidates=list((d/'extracted').rglob(Path(name).name));assert len(candidates)==1,name
+                                                                   ^^^^^^^^^^^^^^^^^^
+AssertionError: sce_sys/param.sfo

@@ -1,0 +1,17 @@
+test_all_old_release_hashes_remain_unchanged (__main__.BootAuditTests.test_all_old_release_hashes_remain_unchanged) ... ok
+test_all_progressive_packages_have_valid_self_and_no_extra_dependencies (__main__.BootAuditTests.test_all_progressive_packages_have_valid_self_and_no_extra_dependencies) ... ok
+test_bad_header_is_rejected (__main__.BootAuditTests.test_bad_header_is_rejected) ... ok
+test_bad_sfo_bounds_are_rejected (__main__.BootAuditTests.test_bad_sfo_bounds_are_rejected) ... ok
+test_changed_entry_point_is_rejected (__main__.BootAuditTests.test_changed_entry_point_is_rejected) ... ok
+test_corrupted_self_payload_is_rejected (__main__.BootAuditTests.test_corrupted_self_payload_is_rejected) ... ok
+test_packaged_sfo_identity_is_distinct_and_preserved (__main__.BootAuditTests.test_packaged_sfo_identity_is_distinct_and_preserved) ... ok
+test_published_v03_failure_is_detected (__main__.BootAuditTests.test_published_v03_failure_is_detected) ... ok
+test_relinked_original_objects_have_complete_mapping (__main__.BootAuditTests.test_relinked_original_objects_have_complete_mapping) ... ok
+test_shrunken_memory_coverage_is_rejected (__main__.BootAuditTests.test_shrunken_memory_coverage_is_rejected) ... ok
+test_stage_one_has_no_engine_cxx_or_graphics_symbols (__main__.BootAuditTests.test_stage_one_has_no_engine_cxx_or_graphics_symbols) ... ok
+test_truncated_program_table_is_rejected (__main__.BootAuditTests.test_truncated_program_table_is_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 12 tests in 0.548s
+
+OK

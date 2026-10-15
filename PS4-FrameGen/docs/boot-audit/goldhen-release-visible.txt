@@ -1,0 +1,323 @@
+Release GoldHEN v2.4b18 · GoldHEN/GoldHEN · GitHub
+Skip to content
+Navigation Menu
+Sign in
+Appearance settings
+Platform
+AI CODE CREATION
+GitHub Copilot
+Write better code with AI
+GitHub Copilot app
+Direct agents from issue to merge
+MCP Registry
+Integrate external tools
+DEVELOPER WORKFLOWS
+Actions
+Automate any workflow
+Codespaces
+Instant dev environments
+Issues
+Plan and track work
+Code Review
+Manage code changes
+Code Quality
+Enforce quality at merge
+APPLICATION SECURITY
+GitHub Advanced Security
+Find and fix vulnerabilities
+Code security
+Secure your code as you build
+Secret protection
+Stop leaks before they start
+EXPLORE
+Why GitHub
+Documentation
+Blog
+Changelog
+Marketplace
+View all features
+Solutions
+BY COMPANY SIZE
+Enterprises
+Small and medium teams
+Startups
+Nonprofits
+BY USE CASE
+App Modernization
+DevSecOps
+DevOps
+CI/CD
+View all use cases
+BY INDUSTRY
+Healthcare
+Financial services
+Manufacturing
+Government
+View all industries
+View all solutions
+Resources
+EXPLORE BY TOPIC
+AI
+Software Development
+DevOps
+Security
+View all topics
+EXPLORE BY TYPE
+Customer stories
+Events & webinars
+Ebooks & reports
+Business insights
+GitHub Skills
+SUPPORT & SERVICES
+Documentation
+Customer support
+Community forum
+Trust center
+Partners
+View all resources
+Open Source
+COMMUNITY
+GitHub Sponsors
+Fund open source developers
+PROGRAMS
+Security Lab
+Maintainer Community
+GitHub Stars
+Archive Program
+REPOSITORIES
+Topics
+Trending
+Collections
+Enterprise
+ENTERPRISE SOLUTIONS
+Enterprise platform
+AI-powered developer platform
+AVAILABLE ADD-ONS
+GitHub Advanced Security
+Enterprise-grade security features
+Copilot for Business
+Enterprise-grade AI features
+Premium Support
+Enterprise-grade 24/7 support
+Pricing
+Search
+/
+Sign in
+Sign up
+Appearance settings
+You signed in with another tab or window.
+Reload
+to refresh your session.
+You signed out in another tab or window.
+Reload
+to refresh your session.
+You switched accounts on another tab or window.
+Reload
+to refresh your session.
+Dismiss alert
+{{ message }}
+GoldHEN
+GoldHEN
+Repository navigation
+Code
+Issues
+89
+(
+89
+)
+Pull requests
+Actions
+Projects
+Security and quality
+Insights
+More
+items
+Releases
+2.4b18
+GoldHEN v2.4b18
+Pre-release
+Pre-release
+Compare
+Choose a tag to compare
+Sorry, something went wrong.
+Filter
+Loading
+Sorry, something went wrong.
+Uh oh!
+There was an error while loading.
+Please reload this page
+.
+No results found
+View all tags
+SiSTR0
+released this
+28 Oct 05:27
+2.4b18
+f2cd6f8
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  _________________  .____  ________    ___ ______________ _______
+ /  _____________  \ |    | \______ \  /   |   \_   _____/ \      \
+/   \  ___  /   |   \|    |  |    |  \/    ~    \    __)_  /   |   \
+\    \_\  \/    |    \    |__|    `   \    Y    /        \/    |    \
+ \______  /\_______  /_______ \_____  /\___|_  /_______  /\____|__  /
+        \/         \/        \/     \/       \/        \/         \/
+                              Coded By
+        _________.__  ____________________________ ________
+       /   _____/|__|/   _________    _________   \\_____  \
+       \_____  \ |  |\_____  \   |    |  |       _/ /   |   \
+       /        \|  |/        \  |    |  |    |   \/    |    \
+      /_______  /|__/_______  /  |____|  |____|_  /\_________/
+              \/            \/                  \/
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Features
+Homebrew Enabler
+Debug Settings
+VR Support
+Remote Package Install
+Rest Mode Support
+External HDD Support
+Official External HDD Format Support
+Debug Trophies Support
+sys_dynlib_dlsym Patch
+UART Enabler
+Never Disable Screenshot
+Remote Play Enabler
+FW Update Block
+FTP Server on 2121 port
+BinLoader Server on 9090 port
+Klog Server on 3232 port
+CE-30391-6 Error CMOS Fix
+Integrated Cheat Menu
+Integrated FPS Counter
+Plugins support
+TitleId label feature
+Scanlines overlay
+Internal pkg installation support (/data/pkg) (Thanks to OSM)
+Notes
+Hi all! The new beta is finally out!
+Sorry for the wait but as always in my free time I continue to work on GoldHEN to improve it and add new features useful to everyone.
+This new release supports both the previous WebKit exploits and the new pppwn, but for this it requires a custom stage2 that I wrote and released the
+code
+I'd like to take this opportunity to thank the people without whom we wouldn't have this (and other) release today:
+TheFlow for releasing his exploit (and not just this one) to everyone.
+flat_z for conceiving and publishing the hen for ps4 with a writeup.
+vortex for implementing the first versions of the hen.
+golden for creating projects that helped me understand many things.
+OSM for his cool Orbis Toolbox.
+Hippie68 for his work on the new FTP server.
+Al_Azif for providing various necessary resources.
+SocraticBliss for his RE scripts.
+Illusion for his game patches and more.
+bucanero for his work on the cheat manager.
+All the cheat developers who shared their trainers with everyone.
+Thanks to the testers who had so much patience:
+Big_Wadger
+EchoStretch
+Opoisso893
+mbcrumb
+MODDED WARFARE
+vapour
+Last but not least, my friends ctn and Kameleon for their continuous support, not only technical!
+Thanks also to everyone who supported my project on kofi.
+⚠️
+Warnings
+The BinLoader server is in an experimental phase but in any case there are several payloads around, some even not very well done, which can also be harmful and in the best case only crash the console. So use it with caution.
+I have tried to work out to support all payloads possible but no guarantees can be given on this. Obviously I do not take any responsibility in case of use of payloads not made by me.
+⚠️
+Known Issues
+Applications such as Apollo, Itemzflow, and Orbis Toolbox may cause the PS4 console to crash/malfunction during entering/exiting rest mode.
+⚠️
+Cheat Menu
+The Cheat Menu is experimental, use with caution.
+Please report cheat related issues to the cheat author(s).
+Read
+CHEATMENU.md
+for more information.
+Cheat menu coded by:
+ctn123
+Shinigami
+SiSTRo
+Plugin SDK
+coded by:
+bucanero
+ctn123
+jocover
+nik
+OSM
+SiSTRo
+Plugin SDK uses
+OpenOrbis-PS4-Toolchain
+so thanks to all
+OpenOrbis
+devs
+Supported Firmware
+5.05
+6.71 / 6.72
+9.00
+9.60
+10.00 / 10.01
+10.50
+10.70 / 10.71
+11.00
+Changelog
+v2.4b18
+Added Cheat Downloader (Thanks to
+ctn
+)
+Added support for 10.50, 10.70 and 10.71
+Improved rest mode support
+Fixed network servers configuration save
+Moved Klog server to userland (better network disconnection supports)
+Donations
+Consider
+donating
+or
+sponsoring
+if you like GoldHEN and want to support my work
+Assets
+3
+Loading
+Uh oh!
+There was an error while loading.
+Please reload this page
+.
+👍
+88
+cstoicescu, LouisGarry, Ashcreatorus, Master-s, Francesco146, branchus, Itiispx, sweetbbak, felon-efnet, 19atlas, and 78 more reacted with thumbs up emoji
+😄
+10
+branchus, Itiispx, 19atlas, dothackjhe, Youness-Achkif, leonewdon, XuanHai-94, PashaLemi, Xaromax189uuvvmkycjsscy, and bo1593 reacted with laugh emoji
+🎉
+18
+cstoicescu, Master-s, branchus, Itiispx, hippydave, HamoBoker, adrivn, AL3MDHz, dothackjhe, Youness-Achkif, and 8 more reacted with hooray emoji
+❤️
+43
+kmeps4, meegle84, Master-s, branchus, Itiispx, narcyzzo, Don-Keballs, P1XEL0711, TheGorje, msartore, and 33 more reacted with heart emoji
+🚀
+10
+Master-s, branchus, HamoBoker, dothackjhe, Youness-Achkif, XuanHai-94, PashaLemi, Xaromax189uuvvmkycjsscy, MAHESH123-Abc300, and bo1593 reacted with rocket emoji
+All reactions
+👍
+88 reactions
+😄
+10 reactions
+🎉
+18 reactions
+❤️
+43 reactions
+🚀
+10 reactions
+119 people reacted
+Footer
+© 2026 GitHub, Inc.
+Footer navigation
+Terms
+Privacy
+Security
+Status
+Community
+Docs
+Contact
+Manage cookies
+Do not share my personal information
+You can’t perform that action at this time.

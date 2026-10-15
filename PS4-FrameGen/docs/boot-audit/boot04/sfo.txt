@@ -1,0 +1,12 @@
+COMMAND ['/workspace/framegen-toolchains/OpenOrbis/PS4Toolchain/bin/linux/PkgTool.Core', 'sfo_listentries', 'sce_sys/param.sfo']
+Entry Name : Entry Type(Size / Max Size) = Entry Value
+APP_TYPE : Integer(4/4) = 0x00000001
+APP_VER : Utf8(6/8) = 01.00
+ATTRIBUTE : Integer(4/4) = 0x00000000
+CATEGORY : Utf8(3/4) = gd
+CONTENT_ID : Utf8(37/48) = IV0000-FGBT00004_00-BOOTDIAG00000004
+DOWNLOAD_DATA_SIZE : Integer(4/4) = 0x00000000
+SYSTEM_VER : Integer(4/4) = 0x00000000
+TITLE : Utf8(27/128) = FrameGen BOOT04 DIAGNOSTIC
+TITLE_ID : Utf8(10/12) = FGBT00004
+VERSION : Utf8(6/8) = 01.00

@@ -1,4 +1,27 @@
-# PS4 FrameGen — descarga v0.3
+# PS4 FrameGen — diagnóstico de arranque
+
+**v0.3 falla al abrir en la PS4 Fat del usuario:** instala, pero muestra el aviso
+de datos dañados. Todavía no hay corrección confirmada en consola.
+
+**[Descargar BOOT01, control mínimo de arranque](https://github.com/ZxAndere/ps4/raw/refs/heads/main/downloads/boot-audit-01/IV0000-FGBT00001_00-BOOTDIAG00000001.pkg)**
+
+- [Los cuatro diagnósticos y sus hashes](downloads/boot-audit-01/README.md).
+- [Cómo probarlos y recuperación](PS4-FrameGen/docs/boot-audit/PRUEBA_PS4.md).
+- [Auditoría y límites de lo comprobado](PS4-FrameGen/docs/boot-audit/DIAGNOSTICO.md).
+- [Registro de cambios](PS4-FrameGen/docs/boot-audit/CAMBIOS.md).
+
+Se corrigió un defecto estático de cobertura BSS y se construyeron cuatro pruebas
+progresivas, sin PRX y con FG desactivado. Pasan integridad del PKG y 12 regresiones;
+falta ejecutarlas en PS4. No se declara compatibilidad con 13.52 / GoldHEN beta 12.
+Los archivos v0.1, v0.2 y v0.3 permanecen intactos.
+
+---
+
+# Descarga histórica v0.3
+
+La siguiente información corresponde a la entrega original, anterior al informe
+de fallo físico. Conservada como referencia; el PKG no debe considerarse validado
+en consola.
 
 **[Abrir las descargas de v0.3](downloads/v0.3/README.md)**
 

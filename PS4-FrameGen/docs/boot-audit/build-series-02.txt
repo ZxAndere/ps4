@@ -1,0 +1,5 @@
+BOOT01 built, Orbis-checked, PKG-validated and extracted: IV0000-FGBT00001_00-BOOTDIAG00000001.pkg
+BOOT02 built, Orbis-checked, PKG-validated and extracted: IV0000-FGBT00002_00-BOOTDIAG00000002.pkg
+BOOT03 built, Orbis-checked, PKG-validated and extracted: IV0000-FGBT00003_00-BOOTDIAG00000003.pkg
+BOOT04 built, Orbis-checked, PKG-validated and extracted: IV0000-FGBT00004_00-BOOTDIAG00000004.pkg
+All diagnostic PKGs compiled. Physical launch is still pending.

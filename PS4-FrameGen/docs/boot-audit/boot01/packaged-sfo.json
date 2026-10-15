@@ -1,0 +1,14 @@
+{
+  "APP_TYPE": 1,
+  "APP_VER": "01.00",
+  "ATTRIBUTE": 0,
+  "CATEGORY": "gd",
+  "CONTENT_ID": "IV0000-FGBT00001_00-BOOTDIAG00000001",
+  "DOWNLOAD_DATA_SIZE": 0,
+  "PUBTOOLINFO": "c_date=20261015,img0_l0_size=7,img0_l1_size=0,img0_sc_ksize=512,img0_pc_ksize=832",
+  "PUBTOOLVER": 42532864,
+  "SYSTEM_VER": 0,
+  "TITLE": "FrameGen BOOT01 DIAGNOSTIC",
+  "TITLE_ID": "FGBT00001",
+  "VERSION": "01.00"
+}

@@ -1,0 +1,76 @@
+{
+  "static_valid": true,
+  "errors": [],
+  "warnings": [],
+  "uncovered_sections": [],
+  "needed_orbis_modules": [
+    "libkernel.prx",
+    "libSceVideoOut.prx"
+  ],
+  "imported_nids": [
+    "9JYNqN6jAKI#B#B",
+    "JGMio+21L4c#B#B",
+    "zl7hupSO0C0#B#B",
+    "1jfXLRVzisc#B#B",
+    "pO96TwzOm5E#B#B",
+    "rTXw65xmLIA#B#B",
+    "L-Q3LEjIbgA#B#B",
+    "Up36PTk687E#C#C",
+    "i6-sR91Wt-4#C#C",
+    "w3BY+tAEiQY#C#C",
+    "CBiu4mCE1DA#C#C",
+    "U46NwOiJpys#C#C",
+    "SbU3dwp80lQ#C#C",
+    "uquVH4-Du78#C#C",
+    "cQke9UuBQOk#B#B",
+    "MBuItvba6z8#B#B",
+    "ku7D4q1Y9PI#B#B",
+    "6Z83sYWFlA8#B#B",
+    "6c3rCVE-fTU#B#B",
+    "t0fXUzq61Z4#B#B",
+    "bY-PO6JhzhQ#B#B",
+    "9BcDykPmo1I#B#B",
+    "BPE9s9vQQXo#B#B",
+    "wW+k21cmbwQ#B#B",
+    "+WRlkKjZvag#B#B",
+    "DRuBt2pvICk#B#B",
+    "YSHRBRLn2pI#B#B",
+    "FxVZqBAA7ks#B#B",
+    "Oy6IpwgtYOk#B#B"
+  ],
+  "elf_entry": 2864,
+  "sdk_start_symbol": 2864,
+  "tls": [
+    {
+      "input": {
+        "type": 7,
+        "flags": 4,
+        "offset": 50016,
+        "address": 33632,
+        "physical": 33632,
+        "file_size": 0,
+        "memory_size": 32,
+        "align": 32
+      },
+      "converted": {
+        "type": 7,
+        "flags": 4,
+        "offset": 50016,
+        "address": 33632,
+        "physical": 33632,
+        "file_size": 0,
+        "memory_size": 32,
+        "align": 32
+      }
+    }
+  ],
+  "self_segments_verified": [
+    0,
+    1,
+    2,
+    8
+  ],
+  "self_bytes": 103440,
+  "self_sha256": "e4e26e19d5060d334a2ea9ece074d57824a4404d3c704bcd76212aef1328497f",
+  "physical_boot_confirmed": false
+}

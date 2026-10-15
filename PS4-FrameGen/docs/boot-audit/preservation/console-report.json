@@ -1,0 +1,16 @@
+{
+  "source": "user physical test report",
+  "hardware": "PS4 Fat",
+  "firmware_reported": "13.52",
+  "goldhen_reported": "beta 12",
+  "tested_pkg_sha256_assumed_from_published_asset": "68db8a909882f4eb2e4c2dea5fafa6af61adc8215c266a120a2891491cab27bc",
+  "exact_console_copy_hash_confirmed": false,
+  "installed": true,
+  "visible_in_home_menu": true,
+  "application_ui_reached": false,
+  "error": "No se puede continuar usando la aplicación. Los datos de la siguiente aplicación están dañados",
+  "loader_error_code": null,
+  "new_pkg_boot_confirmed": false,
+  "loader_error_code_not_displayed_user_confirmed": true,
+  "other_homebrew_same_session_verified": null
+}

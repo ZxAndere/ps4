@@ -1,0 +1,15 @@
+Offset      Size      Flags      Index Enc? Name
+0x2C40      0x1C0     40000000   0          DIGESTS
+0x2000      0x800     60000000   1          ENTRY_KEYS
+0x2800      0x100     E0000000   2     3    IMAGE_KEY
+0x2900      0x180     60000000   3          GENERAL_DIGESTS
+0x2A80      0x1C0     60000000   4          METAS
+0x2E00      0x4B      40000000   5          ENTRY_NAMES
+0x3300      0x400     80000000   6     3    LICENSE_DAT
+0x3700      0x200     80000000   7     2    LICENSE_INFO
+0x3D40      0x2000    00000000   8          PSRESERVED_DAT
+0x3900      0x434     00000000   9          PARAM_SFO
+0x2E50      0x1A0     00000000   10         PLAYGO_CHUNK_DAT
+0x2FF0      0x194     00000000   11         PLAYGO_CHUNK_SHA
+0x3190      0x170     00000000   12         PLAYGO_MANIFEST_XML
+0x5D40      0xD27     00000000   13         ICON0_PNG
