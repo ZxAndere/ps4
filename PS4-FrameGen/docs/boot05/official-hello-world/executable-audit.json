@@ -1,0 +1,92 @@
+{
+  "static_valid": true,
+  "errors": [],
+  "warnings": [
+    "Converter changed TLS alignment; needs runtime verification"
+  ],
+  "uncovered_sections": [],
+  "needed_orbis_modules": [
+    "libkernel.prx"
+  ],
+  "imported_nids": [
+    "1jfXLRVzisc#B#B",
+    "mkawd0NA9ts#B#B",
+    "wuCroIGjt2g#B#B",
+    "9BcDykPmo1I#B#B",
+    "BPE9s9vQQXo#B#B",
+    "aPcyptbOiZs#B#B",
+    "mqQMh1zPPT8#B#B",
+    "bY-PO6JhzhQ#B#B",
+    "YSHRBRLn2pI#B#B",
+    "FxVZqBAA7ks#B#B",
+    "wW+k21cmbwQ#B#B",
+    "yS8U2TGCe1A#B#B",
+    "Oy6IpwgtYOk#B#B",
+    "KiJEPEWRyUY#B#B",
+    "6Z83sYWFlA8#B#B",
+    "mkx2fVhNMsg#B#B",
+    "sIlRvQqsN2Y#B#B",
+    "RXXqi4CtF8w#B#B",
+    "iGjsr1WAtI0#B#B",
+    "WrOLvHU0yQM#B#B",
+    "7Xl257M4VNI#B#B",
+    "2Z+PpY6CaJg#B#B",
+    "27bAgiJmOh0#B#B",
+    "ku7D4q1Y9PI#B#B",
+    "EgmLo6EWgso#B#B",
+    "+U1R4WtXvoc#B#B",
+    "dQHWEsJtoE4#B#B",
+    "7H0iTOciTLo#B#B",
+    "UqDGjXA5yUM#B#B",
+    "ltCfaGr2JGE#B#B",
+    "K-jXhbt2gn4#B#B",
+    "6XG4B33N09g#B#B",
+    "h9CcP3J0oVM#B#B",
+    "0-KXaS70xy4#B#B",
+    "HF7lK46xzjY#B#B",
+    "EotR8a3ASf4#B#B",
+    "mDmgMOGVUqg#B#B",
+    "mqULNdimTn0#B#B",
+    "ttHNfU+qDBU#B#B",
+    "Jahsnh4KKkg#B#B",
+    "Z4QosVuAsA0#B#B",
+    "Op8TBGY5KHg#B#B",
+    "0t0-MxQNwK4#B#B",
+    "2MOy+rUfuhQ#B#B"
+  ],
+  "elf_entry": 723848,
+  "sdk_start_symbol": 723848,
+  "tls": [
+    {
+      "input": {
+        "type": 7,
+        "flags": 4,
+        "offset": 1078320,
+        "address": 1061936,
+        "physical": 1061936,
+        "file_size": 0,
+        "memory_size": 8,
+        "align": 8
+      },
+      "converted": {
+        "type": 7,
+        "flags": 4,
+        "offset": 1078320,
+        "address": 1061936,
+        "physical": 1061936,
+        "file_size": 0,
+        "memory_size": 8,
+        "align": 32
+      }
+    }
+  ],
+  "self_segments_verified": [
+    0,
+    1,
+    2,
+    8
+  ],
+  "self_bytes": 1211200,
+  "self_sha256": "9f8853c397ddf66af6d71c8a7c46a487b4c34792390efd91615223ef630689f2",
+  "physical_boot_confirmed": false
+}

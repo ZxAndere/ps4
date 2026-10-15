@@ -1,0 +1,15 @@
+{
+  "source": "user physical test report",
+  "hardware": "PS4 Fat",
+  "firmware_reported": "13.52",
+  "goldhen_reported": "beta 12",
+  "stage": "BOOT01",
+  "installed": true,
+  "launch_error": "No se puede continuar usando la aplicación. Los datos de la siguiente aplicación están dañados",
+  "main_notification_observed": false,
+  "main_execution_proven": false,
+  "exact_console_copy_sha256_verified": false,
+  "later_stages_tested": false,
+  "loader_error_code": null,
+  "physical_boot_confirmed": false
+}

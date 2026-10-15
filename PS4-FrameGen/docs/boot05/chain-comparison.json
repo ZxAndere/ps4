@@ -1,0 +1,828 @@
+{
+  "upstream_sources": {
+    "OpenOrbis_source_commit": "6929bafac0b565692ed61e66032a79185ee9cf65",
+    "OpenOrbis_release": "0.5.4",
+    "SDK_archive_sha256": "3c7cd5bb593ca74fa1c13fd59f3938dc0fc07985167f7275063019e63abe4526",
+    "PS4CheatsManager_commit": "248e8f23538b4e57e7ec73ac4bd2eca96f2180b5",
+    "musl_commit": "2b0bb8ce2fa64ac255cb656785729d159a5f074c",
+    "create_fself_source_commit": "f2da6229684ce320f673c06fceac9c218f621788"
+  },
+  "reference_physically_executed_here": false,
+  "user_cheat_manager_version_unknown": true,
+  "BOOT01": {
+    "sha256": "ad6cdb3be767681159c99d52c3cfdac6195f1c6323d158886253f539c2a64263",
+    "bytes": 102064,
+    "self_header": {
+      "magic": 490542415,
+      "version": 0,
+      "mode": 1,
+      "endian": 1,
+      "attributes": 18,
+      "key_type": 257,
+      "header_size": 976,
+      "metadata_size": 976,
+      "file_size": 102064,
+      "entry_count": 8,
+      "flags": 34
+    },
+    "orbis_type": "0xfe10",
+    "entry": 440,
+    "program_headers": [
+      {
+        "type": 1,
+        "flags": 5,
+        "offset": 16384,
+        "address": 0,
+        "physical": 0,
+        "file_size": 32768,
+        "memory_size": 32768,
+        "align": 16384
+      },
+      {
+        "type": 1627389968,
+        "flags": 4,
+        "offset": 49152,
+        "address": 32768,
+        "physical": 32768,
+        "file_size": 49152,
+        "memory_size": 49152,
+        "align": 16384
+      },
+      {
+        "type": 1,
+        "flags": 6,
+        "offset": 98304,
+        "address": 81920,
+        "physical": 81920,
+        "file_size": 16384,
+        "memory_size": 16464,
+        "align": 16384
+      },
+      {
+        "type": 1627389953,
+        "flags": 4,
+        "offset": 98304,
+        "address": 81920,
+        "physical": 81920,
+        "file_size": 80,
+        "memory_size": 80,
+        "align": 8
+      },
+      {
+        "type": 2,
+        "flags": 6,
+        "offset": 123784,
+        "address": 123784,
+        "physical": 123784,
+        "file_size": 464,
+        "memory_size": 464,
+        "align": 8
+      },
+      {
+        "type": 3,
+        "flags": 4,
+        "offset": 16384,
+        "address": 0,
+        "physical": 0,
+        "file_size": 21,
+        "memory_size": 21,
+        "align": 1
+      },
+      {
+        "type": 7,
+        "flags": 4,
+        "offset": 50016,
+        "address": 33632,
+        "physical": 33632,
+        "file_size": 0,
+        "memory_size": 32,
+        "align": 32
+      },
+      {
+        "type": 1685382480,
+        "flags": 4,
+        "offset": 34668,
+        "address": 18284,
+        "physical": 18284,
+        "file_size": 44,
+        "memory_size": 44,
+        "align": 4
+      },
+      {
+        "type": 1627389952,
+        "flags": 4,
+        "offset": 122664,
+        "address": 0,
+        "physical": 0,
+        "file_size": 1584,
+        "memory_size": 0,
+        "align": 16
+      }
+    ],
+    "segments_verified": [
+      0,
+      1,
+      2,
+      8
+    ],
+    "paid": "0x3800000000000011",
+    "self_type": 1,
+    "app_version_field": 0,
+    "firmware_field": 0,
+    "authinfo_present": false,
+    "needed_modules": [
+      "libkernel.prx"
+    ],
+    "imported_nids": [
+      "9JYNqN6jAKI#B#B",
+      "zl7hupSO0C0#B#B",
+      "1jfXLRVzisc#B#B",
+      "ku7D4q1Y9PI#B#B",
+      "6Z83sYWFlA8#B#B",
+      "6c3rCVE-fTU#B#B",
+      "t0fXUzq61Z4#B#B",
+      "bY-PO6JhzhQ#B#B",
+      "9BcDykPmo1I#B#B",
+      "wW+k21cmbwQ#B#B"
+    ]
+  },
+  "official_hello_world": {
+    "sha256": "9f8853c397ddf66af6d71c8a7c46a487b4c34792390efd91615223ef630689f2",
+    "bytes": 1211200,
+    "self_header": {
+      "magic": 490542415,
+      "version": 0,
+      "mode": 1,
+      "endian": 1,
+      "attributes": 18,
+      "key_type": 257,
+      "header_size": 976,
+      "metadata_size": 976,
+      "file_size": 1211200,
+      "entry_count": 8,
+      "flags": 34
+    },
+    "orbis_type": "0xfe10",
+    "entry": 723848,
+    "program_headers": [
+      {
+        "type": 1,
+        "flags": 5,
+        "offset": 16384,
+        "address": 0,
+        "physical": 0,
+        "file_size": 1064960,
+        "memory_size": 1064960,
+        "align": 16384
+      },
+      {
+        "type": 1627389968,
+        "flags": 4,
+        "offset": 1081344,
+        "address": 1064960,
+        "physical": 1064960,
+        "file_size": 65536,
+        "memory_size": 65536,
+        "align": 16384
+      },
+      {
+        "type": 1,
+        "flags": 6,
+        "offset": 1146880,
+        "address": 1130496,
+        "physical": 1130496,
+        "file_size": 808,
+        "memory_size": 12472,
+        "align": 16384
+      },
+      {
+        "type": 1627389953,
+        "flags": 4,
+        "offset": 1146880,
+        "address": 1130496,
+        "physical": 1130496,
+        "file_size": 80,
+        "memory_size": 80,
+        "align": 8
+      },
+      {
+        "type": 2,
+        "flags": 6,
+        "offset": 1824520,
+        "address": 1824520,
+        "physical": 1824520,
+        "file_size": 480,
+        "memory_size": 480,
+        "align": 8
+      },
+      {
+        "type": 3,
+        "flags": 4,
+        "offset": 16384,
+        "address": 0,
+        "physical": 0,
+        "file_size": 21,
+        "memory_size": 21,
+        "align": 1
+      },
+      {
+        "type": 7,
+        "flags": 4,
+        "offset": 1078320,
+        "address": 1061936,
+        "physical": 1061936,
+        "file_size": 0,
+        "memory_size": 8,
+        "align": 32
+      },
+      {
+        "type": 1685382480,
+        "flags": 4,
+        "offset": 1025612,
+        "address": 1009228,
+        "physical": 1009228,
+        "file_size": 37100,
+        "memory_size": 37100,
+        "align": 4
+      },
+      {
+        "type": 1627389952,
+        "flags": 4,
+        "offset": 1749464,
+        "address": 0,
+        "physical": 0,
+        "file_size": 75536,
+        "memory_size": 0,
+        "align": 16
+      }
+    ],
+    "segments_verified": [
+      0,
+      1,
+      2,
+      8
+    ],
+    "paid": "0x3800000000000011",
+    "self_type": 1,
+    "app_version_field": 0,
+    "firmware_field": 0,
+    "authinfo_present": false,
+    "needed_modules": [
+      "libkernel.prx"
+    ],
+    "imported_nids": [
+      "1jfXLRVzisc#B#B",
+      "mkawd0NA9ts#B#B",
+      "wuCroIGjt2g#B#B",
+      "9BcDykPmo1I#B#B",
+      "BPE9s9vQQXo#B#B",
+      "aPcyptbOiZs#B#B",
+      "mqQMh1zPPT8#B#B",
+      "bY-PO6JhzhQ#B#B",
+      "YSHRBRLn2pI#B#B",
+      "FxVZqBAA7ks#B#B",
+      "wW+k21cmbwQ#B#B",
+      "yS8U2TGCe1A#B#B",
+      "Oy6IpwgtYOk#B#B",
+      "KiJEPEWRyUY#B#B",
+      "6Z83sYWFlA8#B#B",
+      "mkx2fVhNMsg#B#B",
+      "sIlRvQqsN2Y#B#B",
+      "RXXqi4CtF8w#B#B",
+      "iGjsr1WAtI0#B#B",
+      "WrOLvHU0yQM#B#B",
+      "7Xl257M4VNI#B#B",
+      "2Z+PpY6CaJg#B#B",
+      "27bAgiJmOh0#B#B",
+      "ku7D4q1Y9PI#B#B",
+      "EgmLo6EWgso#B#B",
+      "+U1R4WtXvoc#B#B",
+      "dQHWEsJtoE4#B#B",
+      "7H0iTOciTLo#B#B",
+      "UqDGjXA5yUM#B#B",
+      "ltCfaGr2JGE#B#B",
+      "K-jXhbt2gn4#B#B",
+      "6XG4B33N09g#B#B",
+      "h9CcP3J0oVM#B#B",
+      "0-KXaS70xy4#B#B",
+      "HF7lK46xzjY#B#B",
+      "EotR8a3ASf4#B#B",
+      "mDmgMOGVUqg#B#B",
+      "mqULNdimTn0#B#B",
+      "ttHNfU+qDBU#B#B",
+      "Jahsnh4KKkg#B#B",
+      "Z4QosVuAsA0#B#B",
+      "Op8TBGY5KHg#B#B",
+      "0t0-MxQNwK4#B#B",
+      "2MOy+rUfuhQ#B#B"
+    ]
+  },
+  "official_compatibility_stubs": {
+    "libSceFios2.prx": {
+      "sha256": "3f8236c5996cf8e9917b8d27706d9743f6603d89de3b9859eacbb9f466b19c01",
+      "bytes": 52816,
+      "self_header": {
+        "magic": 490542415,
+        "version": 0,
+        "mode": 1,
+        "endian": 1,
+        "attributes": 18,
+        "key_type": 257,
+        "header_size": 976,
+        "metadata_size": 1136,
+        "file_size": 52816,
+        "entry_count": 10,
+        "flags": 34
+      },
+      "orbis_type": "0xfe18",
+      "entry": 0,
+      "program_headers": [
+        {
+          "type": 1,
+          "flags": 5,
+          "offset": 16384,
+          "address": 0,
+          "physical": 0,
+          "file_size": 16384,
+          "memory_size": 16384,
+          "align": 16384
+        },
+        {
+          "type": 1627389968,
+          "flags": 4,
+          "offset": 32768,
+          "address": 16384,
+          "physical": 16384,
+          "file_size": 32768,
+          "memory_size": 32768,
+          "align": 16384
+        },
+        {
+          "type": 1,
+          "flags": 6,
+          "offset": 65536,
+          "address": 49152,
+          "physical": 49152,
+          "file_size": 40,
+          "memory_size": 56,
+          "align": 16384
+        },
+        {
+          "type": 1,
+          "flags": 6,
+          "offset": 65536,
+          "address": 49152,
+          "physical": 49152,
+          "file_size": 40,
+          "memory_size": 56,
+          "align": 16384
+        },
+        {
+          "type": 1627389954,
+          "flags": 4,
+          "offset": 65536,
+          "address": 49152,
+          "physical": 49152,
+          "file_size": 24,
+          "memory_size": 24,
+          "align": 8
+        },
+        {
+          "type": 2,
+          "flags": 6,
+          "offset": 68536,
+          "address": 68536,
+          "physical": 68536,
+          "file_size": 528,
+          "memory_size": 528,
+          "align": 8
+        },
+        {
+          "type": 1685382480,
+          "flags": 4,
+          "offset": 16844,
+          "address": 460,
+          "physical": 460,
+          "file_size": 52,
+          "memory_size": 52,
+          "align": 4
+        },
+        {
+          "type": 1627389952,
+          "flags": 4,
+          "offset": 67800,
+          "address": 0,
+          "physical": 0,
+          "file_size": 1264,
+          "memory_size": 0,
+          "align": 16
+        }
+      ],
+      "segments_verified": [
+        0,
+        1,
+        2,
+        3,
+        7
+      ],
+      "paid": "0x3800000000000011",
+      "self_type": 1,
+      "app_version_field": 0,
+      "firmware_field": 0,
+      "authinfo_present": false,
+      "needed_modules": [
+        "libkernel.prx",
+        "libSceLibcInternal.prx"
+      ],
+      "imported_nids": [
+        "module_stop",
+        "module_start"
+      ]
+    },
+    "libc.prx": {
+      "sha256": "39ad53672bb0b14895f8465eb1619478ab935f5afe5dbf69c15f02cfc0a75ce6",
+      "bytes": 52800,
+      "self_header": {
+        "magic": 490542415,
+        "version": 0,
+        "mode": 1,
+        "endian": 1,
+        "attributes": 18,
+        "key_type": 257,
+        "header_size": 976,
+        "metadata_size": 1136,
+        "file_size": 52800,
+        "entry_count": 10,
+        "flags": 34
+      },
+      "orbis_type": "0xfe18",
+      "entry": 0,
+      "program_headers": [
+        {
+          "type": 1,
+          "flags": 5,
+          "offset": 16384,
+          "address": 0,
+          "physical": 0,
+          "file_size": 16384,
+          "memory_size": 16384,
+          "align": 16384
+        },
+        {
+          "type": 1627389968,
+          "flags": 4,
+          "offset": 32768,
+          "address": 16384,
+          "physical": 16384,
+          "file_size": 32768,
+          "memory_size": 32768,
+          "align": 16384
+        },
+        {
+          "type": 1,
+          "flags": 6,
+          "offset": 65536,
+          "address": 49152,
+          "physical": 49152,
+          "file_size": 40,
+          "memory_size": 56,
+          "align": 16384
+        },
+        {
+          "type": 1,
+          "flags": 6,
+          "offset": 65536,
+          "address": 49152,
+          "physical": 49152,
+          "file_size": 40,
+          "memory_size": 56,
+          "align": 16384
+        },
+        {
+          "type": 1627389954,
+          "flags": 4,
+          "offset": 65536,
+          "address": 49152,
+          "physical": 49152,
+          "file_size": 24,
+          "memory_size": 24,
+          "align": 8
+        },
+        {
+          "type": 2,
+          "flags": 6,
+          "offset": 68520,
+          "address": 68520,
+          "physical": 68520,
+          "file_size": 528,
+          "memory_size": 528,
+          "align": 8
+        },
+        {
+          "type": 1685382480,
+          "flags": 4,
+          "offset": 16844,
+          "address": 460,
+          "physical": 460,
+          "file_size": 52,
+          "memory_size": 52,
+          "align": 4
+        },
+        {
+          "type": 1627389952,
+          "flags": 4,
+          "offset": 67800,
+          "address": 0,
+          "physical": 0,
+          "file_size": 1248,
+          "memory_size": 0,
+          "align": 16
+        }
+      ],
+      "segments_verified": [
+        0,
+        1,
+        2,
+        3,
+        7
+      ],
+      "paid": "0x3800000000000011",
+      "self_type": 1,
+      "app_version_field": 0,
+      "firmware_field": 0,
+      "authinfo_present": false,
+      "needed_modules": [
+        "libkernel.prx",
+        "libSceLibcInternal.prx"
+      ],
+      "imported_nids": [
+        "module_stop",
+        "module_start"
+      ]
+    }
+  },
+  "cheats_manager_current_source_stubs": {
+    "libSceFios2.prx": {
+      "sha256": "905cf6b7c699eccb6b95291fc4dcaf5ce2d2605f450f36496d9b973777afa745",
+      "bytes": 3200,
+      "self_header": {
+        "magic": 490542415,
+        "version": 0,
+        "mode": 1,
+        "endian": 1,
+        "attributes": 18,
+        "key_type": 257,
+        "header_size": 976,
+        "metadata_size": 976,
+        "file_size": 3200,
+        "entry_count": 8,
+        "flags": 34
+      },
+      "orbis_type": "0xfe18",
+      "entry": 0,
+      "program_headers": [
+        {
+          "type": 1,
+          "flags": 5,
+          "offset": 16384,
+          "address": 0,
+          "physical": 0,
+          "file_size": 216,
+          "memory_size": 216,
+          "align": 16384
+        },
+        {
+          "type": 1627389968,
+          "flags": 4,
+          "offset": 32768,
+          "address": 16384,
+          "physical": 16384,
+          "file_size": 24,
+          "memory_size": 16384,
+          "align": 16384
+        },
+        {
+          "type": 1,
+          "flags": 6,
+          "offset": 49152,
+          "address": 32768,
+          "physical": 32768,
+          "file_size": 24,
+          "memory_size": 24,
+          "align": 16384
+        },
+        {
+          "type": 1627389954,
+          "flags": 4,
+          "offset": 49152,
+          "address": 32768,
+          "physical": 32768,
+          "file_size": 24,
+          "memory_size": 24,
+          "align": 8
+        },
+        {
+          "type": 2,
+          "flags": 6,
+          "offset": 51008,
+          "address": 0,
+          "physical": 0,
+          "file_size": 496,
+          "memory_size": 496,
+          "align": 8
+        },
+        {
+          "type": 7,
+          "flags": 4,
+          "offset": 0,
+          "address": 0,
+          "physical": 0,
+          "file_size": 0,
+          "memory_size": 0,
+          "align": 1
+        },
+        {
+          "type": 1685382480,
+          "flags": 4,
+          "offset": 16580,
+          "address": 196,
+          "physical": 196,
+          "file_size": 20,
+          "memory_size": 20,
+          "align": 4
+        },
+        {
+          "type": 1627389952,
+          "flags": 4,
+          "offset": 50672,
+          "address": 0,
+          "physical": 0,
+          "file_size": 832,
+          "memory_size": 0,
+          "align": 16
+        },
+        {
+          "type": 0,
+          "flags": 0,
+          "offset": 0,
+          "address": 0,
+          "physical": 0,
+          "file_size": 0,
+          "memory_size": 0,
+          "align": 0
+        }
+      ],
+      "segments_verified": [
+        0,
+        1,
+        2,
+        7
+      ],
+      "paid": "0x3800000000000011",
+      "self_type": 1,
+      "app_version_field": 0,
+      "firmware_field": 0,
+      "authinfo_present": false,
+      "needed_modules": [
+        "libkernel.prx",
+        "libSceLibcInternal.prx"
+      ],
+      "imported_nids": [
+        "module_stop",
+        "module_start"
+      ]
+    },
+    "libc.prx": {
+      "sha256": "8ac205d14351edb241238b372b2f1c3350a6385a271483d4867fe9a33bc6e4d3",
+      "bytes": 3424,
+      "self_header": {
+        "magic": 490542415,
+        "version": 0,
+        "mode": 1,
+        "endian": 1,
+        "attributes": 18,
+        "key_type": 257,
+        "header_size": 976,
+        "metadata_size": 976,
+        "file_size": 3424,
+        "entry_count": 8,
+        "flags": 34
+      },
+      "orbis_type": "0xfe18",
+      "entry": 0,
+      "program_headers": [
+        {
+          "type": 1,
+          "flags": 5,
+          "offset": 16384,
+          "address": 0,
+          "physical": 0,
+          "file_size": 392,
+          "memory_size": 392,
+          "align": 16384
+        },
+        {
+          "type": 1627389968,
+          "flags": 4,
+          "offset": 32768,
+          "address": 16384,
+          "physical": 16384,
+          "file_size": 32,
+          "memory_size": 16384,
+          "align": 16384
+        },
+        {
+          "type": 1,
+          "flags": 6,
+          "offset": 49152,
+          "address": 32768,
+          "physical": 32768,
+          "file_size": 24,
+          "memory_size": 24,
+          "align": 16384
+        },
+        {
+          "type": 1627389954,
+          "flags": 4,
+          "offset": 49152,
+          "address": 32768,
+          "physical": 32768,
+          "file_size": 24,
+          "memory_size": 24,
+          "align": 8
+        },
+        {
+          "type": 2,
+          "flags": 6,
+          "offset": 51320,
+          "address": 0,
+          "physical": 0,
+          "file_size": 496,
+          "memory_size": 496,
+          "align": 8
+        },
+        {
+          "type": 7,
+          "flags": 4,
+          "offset": 0,
+          "address": 0,
+          "physical": 0,
+          "file_size": 0,
+          "memory_size": 0,
+          "align": 1
+        },
+        {
+          "type": 1685382480,
+          "flags": 4,
+          "offset": 16756,
+          "address": 372,
+          "physical": 372,
+          "file_size": 20,
+          "memory_size": 20,
+          "align": 4
+        },
+        {
+          "type": 1627389952,
+          "flags": 4,
+          "offset": 50936,
+          "address": 0,
+          "physical": 0,
+          "file_size": 880,
+          "memory_size": 0,
+          "align": 16
+        },
+        {
+          "type": 0,
+          "flags": 0,
+          "offset": 0,
+          "address": 0,
+          "physical": 0,
+          "file_size": 0,
+          "memory_size": 0,
+          "align": 0
+        }
+      ],
+      "segments_verified": [
+        0,
+        1,
+        2,
+        7
+      ],
+      "paid": "0x3800000000000011",
+      "self_type": 1,
+      "app_version_field": 0,
+      "firmware_field": 0,
+      "authinfo_present": false,
+      "needed_modules": [
+        "libkernel.prx",
+        "libSceLibcInternal.prx"
+      ],
+      "imported_nids": [
+        "hcuQgD53UxM#C#C",
+        "module_stop",
+        "module_start"
+      ]
+    }
+  },
+  "BOOT01_need_sceLibc_field_at_0x48": 0
+}

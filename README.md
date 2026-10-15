@@ -1,4 +1,29 @@
-# PS4 FrameGen — diagnóstico de arranque
+# PS4 FrameGen — BOOT05, pendiente de prueba física
+
+**BOOT01 también falló en la PS4 del usuario. No continuar con BOOT02–04.**
+PS4 Cheat Manager sí abre en esa misma sesión. No está confirmada la causa del
+aviso de datos dañados ni la compatibilidad de estos binarios con el entorno declarado.
+
+**[Descargar BOOT05](https://github.com/ZxAndere/ps4/raw/refs/heads/main/downloads/boot05/IV0000-FGBT00005_00-BOOTDIAG00000005.pkg)**
+
+BOOT05 prueba una diferencia documentada del paquete: añade los dos stubs de
+compatibilidad de OpenOrbis que faltaban. Conserva exactamente el ejecutable de
+BOOT01; por eso, si abre, la notificación dirá «BOOT01: MAIN alcanzado».
+
+- [Descargas, fuente y SHA-256](downloads/boot05/README.md).
+- [Diagnóstico y diferencias comprobadas](PS4-FrameGen/docs/boot05/DIAGNOSTICO.md).
+- [Cómo probar solo BOOT05 y recuperarse](PS4-FrameGen/docs/boot05/PRUEBA_PS4.md).
+- [Registro de cambios](PS4-FrameGen/docs/boot05/CAMBIOS.md).
+
+Se conservan intactos v0.1, v0.2, v0.3 y BOOT01–04. BOOT05 no está validado en
+consola y no se presenta como solución confirmada.
+
+---
+
+# Información histórica — primera serie de diagnóstico
+
+La siguiente sección describe la entrega anterior. Su BOOT01 falló después
+en consola; no se recomienda continuar esa serie.
 
 **v0.3 falla al abrir en la PS4 Fat del usuario:** instala, pero muestra el aviso
 de datos dañados. Todavía no hay corrección confirmada en consola.

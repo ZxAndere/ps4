@@ -1,0 +1,59 @@
+{
+  "series": "boot05",
+  "file": "IV0000-FGBT00005_00-BOOTDIAG00000005.pkg",
+  "sha256": "b50a67d5400eca1560531194cab50b0457440cfabd95c43ce41f2ea26281a527",
+  "bytes": 6619136,
+  "title_id": "FGBT00005",
+  "content_id": "IV0000-FGBT00005_00-BOOTDIAG00000005",
+  "eboot_sha256": "ad6cdb3be767681159c99d52c3cfdac6195f1c6323d158886253f539c2a64263",
+  "eboot_identical_to_released_boot01": true,
+  "icon_identical_to_boot01": true,
+  "recompiled_input_elf_identical": true,
+  "recompiled_elf_sha256": "72b66a17839972e7b1150b2645d74082a2e14af13efbc8079df9303bb5fb6a27",
+  "payload_self_copied_from_verified_published_boot01": true,
+  "added_payloads": {
+    "sce_module/libc.prx": "39ad53672bb0b14895f8465eb1619478ab935f5afe5dbf69c15f02cfc0a75ce6",
+    "sce_module/libSceFios2.prx": "3f8236c5996cf8e9917b8d27706d9743f6603d89de3b9859eacbb9f466b19c01"
+  },
+  "framegen_bridge_packaged": false,
+  "frame_generation_enabled": false,
+  "physical_boot_confirmed": false,
+  "root_cause_confirmed": false,
+  "expected_notification_label": "FrameGen BOOT01: MAIN alcanzado.",
+  "inputs": {
+    "/workspace/ps4/PS4-FrameGen/boot-diagnostics/boot01.c": "8f84ea2be673d229f9fea2f1cb9ead16b63f6fad1e2864097224ad44bcc1003a",
+    "/workspace/ps4/PS4-FrameGen/boot-diagnostics/platform.c": "60f2f98ac5c44107ae5b1aed4b9ce716f46ee3e1c9078be4aa8d1630fbe97806",
+    "/workspace/ps4/PS4-FrameGen/boot-diagnostics/platform.h": "6b8d8d09eaa732dfa439482563971e6853bb3f6f3cb414e2d551542d94036602",
+    "/workspace/ps4/PS4-FrameGen/boot-diagnostics/link-boot.x": "1d9791dfbb6cf6357308f409c8070435f237d6a6770f53cebd9aaa24aa7c68aa",
+    "/workspace/framegen-toolchains/OpenOrbis/PS4Toolchain/lib/crt1.o": "4173c4401c0b5d0a72c2641f712982bb38a78e346515278a32fa99d4bbf9dd86",
+    "/workspace/framegen-toolchains/OpenOrbis/PS4Toolchain/lib/libc.a": "dd3f25830490bc0aab6a87a1bce890a502e2ec874ac8c3169e37210c4e49aef7",
+    "/workspace/framegen-toolchains/OpenOrbis/PS4Toolchain/lib/libkernel.so": "0b52fd74a9ec02eed0e03a691b087cc2910f0901d0bcdd643c5d666aaa76d9c3",
+    "/workspace/framegen-toolchains/OpenOrbis/PS4Toolchain/bin/linux/create-fself": "6232098c3eed1b801c97ae90f271315b898c11c5c630831abce7331b502f952c",
+    "/workspace/framegen-toolchains/OpenOrbis/PS4Toolchain/bin/linux/create-gp4": "491d5adab450313ab573a48e5b191add3a12faf54b2602ae59fef1e5bb07073f",
+    "/workspace/framegen-toolchains/OpenOrbis/PS4Toolchain/bin/linux/PkgTool.Core": "7a96c138aaa5d36a2c39817c9febd27aafb4d9c64086a75f3672eaff81da8e5f"
+  },
+  "source_base_commit": "a6edcb8f1ef7c148b5331807acaa628246c20845",
+  "date": "2026-10-15",
+  "status": "physical console test pending",
+  "regression_tests": {
+    "executed": 12,
+    "passed": 12
+  },
+  "firmware_13_52_compatibility_confirmed": false,
+  "goldhen_beta_12_compatibility_confirmed": false,
+  "source_archive": "PS4-FrameGen-BOOT05-source.zip",
+  "files": {
+    "IV0000-FGBT00005_00-BOOTDIAG00000005.pkg": {
+      "bytes": 6619136,
+      "sha256": "b50a67d5400eca1560531194cab50b0457440cfabd95c43ce41f2ea26281a527"
+    },
+    "PS4-FrameGen-BOOT05-source.zip": {
+      "bytes": 28310147,
+      "sha256": "e8e5535b72423009682e1bbb9a6fa0dd5eb5423574ea488e37fdeafb9d7dbcd1"
+    },
+    "README.md": {
+      "bytes": 2524,
+      "sha256": "4ff130ad95ba18c2fccdf925dbf06643dc30589963c56477cb0ec28cc2e4bad8"
+    }
+  }
+}

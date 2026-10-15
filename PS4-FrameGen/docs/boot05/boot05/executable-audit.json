@@ -1,0 +1,56 @@
+{
+  "static_valid": true,
+  "errors": [],
+  "warnings": [],
+  "uncovered_sections": [],
+  "needed_orbis_modules": [
+    "libkernel.prx"
+  ],
+  "imported_nids": [
+    "9JYNqN6jAKI#B#B",
+    "zl7hupSO0C0#B#B",
+    "1jfXLRVzisc#B#B",
+    "ku7D4q1Y9PI#B#B",
+    "6Z83sYWFlA8#B#B",
+    "6c3rCVE-fTU#B#B",
+    "t0fXUzq61Z4#B#B",
+    "bY-PO6JhzhQ#B#B",
+    "9BcDykPmo1I#B#B",
+    "wW+k21cmbwQ#B#B"
+  ],
+  "elf_entry": 440,
+  "sdk_start_symbol": 440,
+  "tls": [
+    {
+      "input": {
+        "type": 7,
+        "flags": 4,
+        "offset": 50016,
+        "address": 33632,
+        "physical": 33632,
+        "file_size": 0,
+        "memory_size": 32,
+        "align": 32
+      },
+      "converted": {
+        "type": 7,
+        "flags": 4,
+        "offset": 50016,
+        "address": 33632,
+        "physical": 33632,
+        "file_size": 0,
+        "memory_size": 32,
+        "align": 32
+      }
+    }
+  ],
+  "self_segments_verified": [
+    0,
+    1,
+    2,
+    8
+  ],
+  "self_bytes": 102048,
+  "self_sha256": "c8ad717fb48ecde562d510c54d1e425bbdfd2975511b7fe108b0edbc2784a1ce",
+  "physical_boot_confirmed": false
+}
