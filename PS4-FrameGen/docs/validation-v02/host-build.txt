@@ -1,0 +1,21 @@
+[  5%] Building CXX object CMakeFiles/framegen.dir/engine/capture/image.cpp.o
+[ 10%] Linking CXX static library libframegen.a
+[ 57%] Built target framegen
+[ 73%] Linking CXX shared library libframegen_bridge.so
+[ 73%] Linking CXX executable framegen_cli
+[ 73%] Linking CXX executable framegen_tests
+[ 78%] Built target framegen_bridge
+[ 84%] Linking CXX executable framegen_bridge_tests
+[ 94%] Built target framegen_cli
+[ 94%] Built target framegen_tests
+[100%] Built target framegen_bridge_tests
+Internal ctest changing into directory: /workspace/ps4/PS4-FrameGen/build-opt
+Test project /workspace/ps4/PS4-FrameGen/build-opt
+    Start 1: framegen_functional
+1/2 Test #1: framegen_functional ..............   Passed    1.37 sec
+    Start 2: framegen_cooperative_bridge
+2/2 Test #2: framegen_cooperative_bridge ......   Passed    0.01 sec
+
+100% tests passed, 0 tests failed out of 2
+
+Total Test time (real) =   1.38 sec

@@ -1,0 +1,1 @@
+PASS generated comparator JavaScript with DOM fixture: 21 real rasters, originals/difference selection and split callback. Browser rendering not exercised.

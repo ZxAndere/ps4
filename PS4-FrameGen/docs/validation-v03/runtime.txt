@@ -1,0 +1,16 @@
+PASS adaptive overload degrades then bypasses and recovers with hysteresis
+PASS capture deadlines discard generated frames only and limiter cannot exceed display
+PASS runtime bypass and safe mode present newest original
+PASS low latency overload bypass counts discards and presents current original
+PASS SIMD flow and integer area preserve RGB across scales and multipliers
+PASS nearest and cubic handle corners constants and letterbox
+PASS scene guard records unreliable motion and cut suppression
+PASS flip statistics have bounded samples and no fake presentation
+PASS versioned profiles roundtrip without activating untested games
+PASS corrupt profile recovers last valid preferences without activation
+PASS unclean restart locks experiments and faults remain recoverable
+PASS JSONL diagnostics report unavailable display values as null
+PASS visual comparator uses supplied reference and produces actual differences
+PASS sections emergency disable and defaults are connected
+PASS steady memory remains bounded over alternating modes
+15 passed, 0 failed

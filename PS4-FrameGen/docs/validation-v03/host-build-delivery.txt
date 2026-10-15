@@ -1,0 +1,40 @@
+[  6%] Building CXX object CMakeFiles/framegen.dir/engine/capture/image.cpp.o
+[  6%] Building CXX object CMakeFiles/framegen.dir/engine/motion/block_match.cpp.o
+[ 10%] Building CXX object CMakeFiles/framegen.dir/engine/scaling/scale.cpp.o
+[ 13%] Building CXX object CMakeFiles/framegen.dir/engine/interpolation/interpolate.cpp.o
+[ 16%] Building CXX object CMakeFiles/framegen.dir/engine/performance/pipeline.cpp.o
+[ 20%] Building CXX object CMakeFiles/framegen.dir/engine/presentation/monitor.cpp.o
+[ 23%] Building CXX object CMakeFiles/framegen.dir/engine/optimized/processor.cpp.o
+[ 26%] Building CXX object CMakeFiles/framegen.dir/engine/performance/runtime.cpp.o
+[ 30%] Building CXX object CMakeFiles/framegen.dir/overlay/input/controller.cpp.o
+[ 33%] Building CXX object CMakeFiles/framegen.dir/overlay/settings/settings.cpp.o
+[ 36%] Building CXX object CMakeFiles/framegen.dir/overlay/menu/draw.cpp.o
+[ 40%] Linking CXX static library libframegen.a
+[ 40%] Built target framegen
+[ 43%] Building CXX object CMakeFiles/framegen_ablation.dir/windows-tests/ablation.cpp.o
+[ 46%] Building CXX object CMakeFiles/framegen_cli.dir/windows-tests/main.cpp.o
+[ 50%] Building CXX object CMakeFiles/framegen_tests.dir/tests/tests.cpp.o
+[ 53%] Building CXX object CMakeFiles/framegen_bridge.dir/goldhen/plugin/bridge.cpp.o
+[ 56%] Linking CXX shared library libframegen_bridge.so
+[ 56%] Built target framegen_bridge
+[ 60%] Building CXX object CMakeFiles/framegen_runtime_tests.dir/tests/runtime_tests.cpp.o
+[ 63%] Linking CXX executable framegen_cli
+[ 66%] Linking CXX executable framegen_ablation
+[ 66%] Built target framegen_cli
+[ 70%] Building CXX object CMakeFiles/framegen_inspect.dir/windows-tests/inspect.cpp.o
+[ 70%] Built target framegen_ablation
+[ 73%] Building CXX object CMakeFiles/framegen_benchmark_v03.dir/windows-tests/benchmark-v03.cpp.o
+[ 76%] Linking CXX executable framegen_tests
+[ 76%] Built target framegen_tests
+[ 80%] Building CXX object CMakeFiles/framegen_replay.dir/windows-tests/replay.cpp.o
+[ 83%] Linking CXX executable framegen_inspect
+[ 83%] Built target framegen_inspect
+[ 86%] Building CXX object CMakeFiles/framegen_bridge_tests.dir/tests/bridge_tests.cpp.o
+[ 90%] Linking CXX executable framegen_runtime_tests
+[ 93%] Linking CXX executable framegen_replay
+[ 93%] Built target framegen_runtime_tests
+[ 93%] Built target framegen_replay
+[ 96%] Linking CXX executable framegen_benchmark_v03
+[ 96%] Built target framegen_benchmark_v03
+[100%] Linking CXX executable framegen_bridge_tests
+[100%] Built target framegen_bridge_tests

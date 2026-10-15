@@ -1,0 +1,16 @@
+v02-equivalent-720 44.7629 ms RGB MSE 0
+vector-flow-720 42.2493 ms RGB MSE 0
+v02-equivalent-540 31.2175 ms RGB MSE 0
+vector-flow-540 29.0036 ms RGB MSE 0
+integer-area-540 27.7934 ms RGB MSE 0
+v02-equivalent-360 20.4358 ms RGB MSE 0
+vector-flow-360 20.3425 ms RGB MSE 0
+integer-area-360 17.7361 ms RGB MSE 0
+nearest-360 15.4498 ms RGB MSE -1
+bilinear-360 17.2786 ms RGB MSE -1
+bicubic-360 77.4591 ms RGB MSE -1
+sharp25-360 30.0601 ms RGB MSE -1
+vector-flow-720-x3 73.0876 ms RGB MSE -1
+vector-flow-720-x4 101.734 ms RGB MSE -1
+integer-area-360-x3 27.9161 ms RGB MSE -1
+integer-area-360-x4 35.6824 ms RGB MSE -1

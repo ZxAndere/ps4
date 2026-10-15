@@ -1,0 +1,25 @@
+{
+  "version": "0.2",
+  "previous_manifest_preserved": true,
+  "functional_cases": 22,
+  "functional_failed": 0,
+  "functional_skipped": 0,
+  "integration_suites": 1,
+  "benchmark_matrix_cases": 22,
+  "interleaved_variants": 8,
+  "interleaved_rounds": 15,
+  "console_executed": false,
+  "windows_executed": false,
+  "gpu_backend_executed": false,
+  "files": {
+    "build-opt/framegen_cli": "94726ded8b8eda54b69ad33b1dbba417831a6f0d9efbe513fc6e4a205643e0b1",
+    "build-opt/framegen_ablation": "f7ffa557c23a640f977008fc6cd3ef52d4002d226f8f66a28bebba3a0fde516a",
+    "build-opt/libframegen_bridge.so": "7c4fb543ba206f5a9c128677d93046f53653e5ca6b943fa6809b9f6b7fdcffea",
+    "build-ps4-v02-final/framegen.elf": "a0cde99492c140d0235b6a5fc7c98a7a3a79d35adbfa1e8d986182d321f33767",
+    "build-ps4-v02-final/framegen_bridge.elf": "025c966f9e5a80b924f91b2556334468c2a4a4e0222bd7ef8f10ef888ff013b2",
+    "build-ps4-v02-final/IV0000-FGEN00001_00-PS4FRAMEGEN00001.pkg": "cd26e052e8095ef912ac7bcd4a771d9505b4e8e6a84ad73d9d5341e4e17b5112",
+    "build-ps4-v02-final/package/framegen_bridge.prx": "40fa6235f022bac22c2e92ccb8ed644199e289774505a0b41b03fa475cd8a2a3",
+    "docs/measurements-v02.json": "099190f6b9ae4d791d70d5c1fab2c037dbb128f43e042059a372e77f5de71825",
+    "docs/interleaved-v02.json": "99b8516d4f65d50260c8d89f6915ec6083d7968f8b0afba02c0be17ae64e14b0"
+  }
+}

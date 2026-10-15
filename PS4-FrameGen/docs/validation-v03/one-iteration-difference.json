@@ -1,0 +1,10 @@
+{
+  "720": {
+    "max_rgb_error_vs_two_iterations": 82,
+    "mae_vs_two_iterations": 0.4368446180555556
+  },
+  "360": {
+    "max_rgb_error_vs_two_iterations": 56,
+    "mae_vs_two_iterations": 0.20228226273148148
+  }
+}

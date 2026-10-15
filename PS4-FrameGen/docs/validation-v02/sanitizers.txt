@@ -1,0 +1,10 @@
+Internal ctest changing into directory: /workspace/ps4/PS4-FrameGen/build-sanitize-v02
+Test project /workspace/ps4/PS4-FrameGen/build-sanitize-v02
+    Start 1: framegen_functional
+1/2 Test #1: framegen_functional ..............   Passed   22.48 sec
+    Start 2: framegen_cooperative_bridge
+2/2 Test #2: framegen_cooperative_bridge ......   Passed    0.32 sec
+
+100% tests passed, 0 tests failed out of 2
+
+Total Test time (real) =  22.79 sec

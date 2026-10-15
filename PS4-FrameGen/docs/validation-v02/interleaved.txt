@@ -1,0 +1,8 @@
+reference: median 230.942 ms, speedup 1, MSE 0
+scalar: median 124.599 ms, speedup 1.85348, MSE 0
+sse2: median 106.463 ms, speedup 2.16922, MSE 0
+direct: median 107.611 ms, speedup 2.14607, MSE 0
+reuse: median 107.224 ms, speedup 2.15382, MSE 0
+threads2: median 64.6622 ms, speedup 3.57151, MSE 0
+threads4: median 42.3214 ms, speedup 5.45686, MSE 0
+motion-early: median 41.479 ms, speedup 5.56768, MSE 0

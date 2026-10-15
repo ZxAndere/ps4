@@ -1,0 +1,18 @@
+-- Configuring done (0.0s)
+-- Generating done (0.0s)
+-- Build files have been written to: /workspace/ps4/PS4-FrameGen/build
+[  7%] Building CXX object CMakeFiles/framegen.dir/overlay/menu/draw.cpp.o
+[ 14%] Linking CXX static library libframegen.a
+[ 71%] Built target framegen
+[ 78%] Linking CXX executable framegen_tests
+[ 85%] Linking CXX executable framegen_cli
+[100%] Built target framegen_cli
+[100%] Built target framegen_tests
+Internal ctest changing into directory: /workspace/ps4/PS4-FrameGen/build
+Test project /workspace/ps4/PS4-FrameGen/build
+    Start 1: framegen_functional
+1/1 Test #1: framegen_functional ..............   Passed    0.40 sec
+
+100% tests passed, 0 tests failed out of 1
+
+Total Test time (real) =   0.40 sec

@@ -1,0 +1,59 @@
+{
+  "framegen_cli.exe": {
+    "sha256": "d6f898affc8eab6162975cb5214af3732c7713fe32a84ca0a0cb2de7a23308ab",
+    "dependencies": [
+      "KERNEL32.dll",
+      "msvcrt.dll"
+    ],
+    "executed_on_windows": false
+  },
+  "framegen_tests.exe": {
+    "sha256": "f966dfbfdaeaf8e798ce1782929bf580061cad72170d7719791bdb3ef2992c98",
+    "dependencies": [
+      "KERNEL32.dll",
+      "msvcrt.dll"
+    ],
+    "executed_on_windows": false
+  },
+  "framegen_runtime_tests.exe": {
+    "sha256": "71799202bac21cd43018f949ffe1702368a2b5ace4e1fad651d352c73ac19cfa",
+    "dependencies": [
+      "KERNEL32.dll",
+      "msvcrt.dll"
+    ],
+    "executed_on_windows": false
+  },
+  "framegen_bridge_tests.exe": {
+    "sha256": "13b37576f40079c672b15421dccb54cca0b8e232cbcead85d6ac33fb63a3de18",
+    "dependencies": [
+      "KERNEL32.dll",
+      "msvcrt.dll",
+      "libframegen_bridge.dll"
+    ],
+    "executed_on_windows": false
+  },
+  "framegen_inspect.exe": {
+    "sha256": "fc8bbc0eeb8a5dba0e87c09b22a8abb33be554475ff688c996247e596bc24871",
+    "dependencies": [
+      "KERNEL32.dll",
+      "msvcrt.dll"
+    ],
+    "executed_on_windows": false
+  },
+  "framegen_replay.exe": {
+    "sha256": "c8e554e87d144f9e43c6173e3a6812aeb59abac11e6f7b2ecf58af11aa667005",
+    "dependencies": [
+      "KERNEL32.dll",
+      "msvcrt.dll"
+    ],
+    "executed_on_windows": false
+  },
+  "libframegen_bridge.dll": {
+    "sha256": "d1c452891cdd56b5bcaf450d92a813e9958432d1f7ac7b04d1d57f66e1379ffe",
+    "dependencies": [
+      "KERNEL32.dll",
+      "msvcrt.dll"
+    ],
+    "executed_on_windows": false
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "system": "Linux-6.18.44-x86_64-with-glibc2.41",
+  "machine": "x86_64",
+  "compiler": "c++ (Debian 14.2.0-19) 14.2.0",
+  "orbis_compiler": "Debian clang version 19.1.7 (3+b1)",
+  "cpu": "AMD EPYC 9V74 80-Core Processor",
+  "cpu_quota": "400000 100000",
+  "affinity_cpu_count": 5,
+  "host_threads": 4,
+  "orbis_threads_default": 2,
+  "no_console_execution": true,
+  "no_windows_execution": true
+}

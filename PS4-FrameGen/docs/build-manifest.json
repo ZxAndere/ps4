@@ -1,0 +1,18 @@
+{
+  "host_compiler": "GCC 14.2.0",
+  "ps4_compiler": "Clang/LLD 19.1.7",
+  "openorbis": "0.5.4",
+  "functional_cases": 17,
+  "functional_failed": 0,
+  "functional_skipped": 0,
+  "benchmark_cases": 34,
+  "benchmark_repeats": 3,
+  "ps4_executed": false,
+  "windows_executed": false,
+  "files": {
+    "build/framegen_cli": "bc59de6a1dd1094ea77abb3030b96338b1d3cd9dbcd5844242375889af9ed66a",
+    "build-ps4/framegen.elf": "0a253652d95806b3b3c93fc5951488b52139c68828f9ddc8538e41e88b71be91",
+    "build-ps4/IV0000-BREWFG001_00-PS4FRAMEGEN00001.pkg": "a3e47cb7054f9a182c49a3bfd1a4158022a1513773cba76e600b0cedc3ff9f4a",
+    "docs/measurements.json": "56150a2af8987dbbaa45e689b7b2447b7cbf0fe2f611ce0e9f554f4bc3954c89"
+  }
+}

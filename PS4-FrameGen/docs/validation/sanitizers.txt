@@ -1,0 +1,15 @@
+[  7%] Building CXX object CMakeFiles/framegen.dir/overlay/menu/draw.cpp.o
+[ 14%] Linking CXX static library libframegen.a
+[ 71%] Built target framegen
+[ 78%] Linking CXX executable framegen_cli
+[ 85%] Linking CXX executable framegen_tests
+[ 92%] Built target framegen_cli
+[100%] Built target framegen_tests
+Internal ctest changing into directory: /workspace/ps4/PS4-FrameGen/build-sanitize
+Test project /workspace/ps4/PS4-FrameGen/build-sanitize
+    Start 1: framegen_functional
+1/1 Test #1: framegen_functional ..............   Passed    4.05 sec
+
+100% tests passed, 0 tests failed out of 1
+
+Total Test time (real) =   4.06 sec

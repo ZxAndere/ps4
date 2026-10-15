@@ -1,0 +1,32 @@
+{
+  "pkg_sha256": "68db8a909882f4eb2e4c2dea5fafa6af61adc8215c266a120a2891491cab27bc",
+  "payloads": {
+    "eboot.bin": "aa348a962611b45355d0805c0d76c20902000f93d42efda49a913848daeef665",
+    "framegen_bridge.prx": "eec06aa64e71f086c22094c450a2b54e40bf5a03956ef84ee32efcc9d84cc9e7"
+  },
+  "dynamic_exports": [
+    "fg_bridge_api",
+    "g_pluginAuth",
+    "g_pluginDesc",
+    "g_pluginName",
+    "g_pluginVersion",
+    "plugin_load",
+    "plugin_unload"
+  ],
+  "dependencies": {
+    "framegen.elf": [
+      "libkernel.so",
+      "libSceVideoOut.so",
+      "libScePad.so",
+      "libSceUserService.so"
+    ],
+    "framegen_bridge.elf": [
+      "libkernel.so"
+    ]
+  },
+  "previous_manifest_unchanged": true,
+  "v02_release_unchanged": true,
+  "console_executed": false,
+  "firmware_13_52_verified": false,
+  "goldhen_beta12_verified": false
+}

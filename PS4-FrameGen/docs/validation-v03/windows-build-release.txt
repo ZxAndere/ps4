@@ -1,0 +1,23 @@
+[  3%] Building CXX object CMakeFiles/framegen.dir/engine/performance/runtime.cpp.obj
+[  6%] Building CXX object CMakeFiles/framegen.dir/overlay/menu/draw.cpp.obj
+[ 10%] Linking CXX static library libframegen.a
+[ 40%] Built target framegen
+[ 43%] Linking CXX executable framegen_cli.exe
+[ 46%] Linking CXX executable framegen_tests.exe
+[ 50%] Linking CXX executable framegen_ablation.exe
+[ 53%] Linking CXX shared library libframegen_bridge.dll
+[ 56%] Built target framegen_bridge
+[ 60%] Built target framegen_cli
+[ 63%] Building CXX object CMakeFiles/framegen_runtime_tests.dir/tests/runtime_tests.cpp.obj
+[ 66%] Linking CXX executable framegen_inspect.exe
+[ 70%] Built target framegen_tests
+[ 73%] Linking CXX executable framegen_benchmark_v03.exe
+[ 76%] Built target framegen_ablation
+[ 80%] Linking CXX executable framegen_replay.exe
+[ 83%] Built target framegen_inspect
+[ 86%] Linking CXX executable framegen_bridge_tests.exe
+[ 90%] Built target framegen_benchmark_v03
+[ 96%] Built target framegen_replay
+[ 96%] Built target framegen_bridge_tests
+[100%] Linking CXX executable framegen_runtime_tests.exe
+[100%] Built target framegen_runtime_tests

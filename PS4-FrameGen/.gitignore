@@ -1,0 +1,10 @@
+/build*/
+/artifacts/
+/data/
+*.pkg
+*.prx
+*.oelf
+*.elf
+*.bin
+*.o
+__pycache__/

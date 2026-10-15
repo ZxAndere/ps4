@@ -1,0 +1,1320 @@
+{
+  "host": "AMD EPYC 9V74, Debian 13, quota 4 CPU; not PS4",
+  "repeats": 9,
+  "warmup_pairs": 1,
+  "display_presented": false,
+  "inputs": {
+    "0.ppm": "3d2c70177e7d0523c08d3ee307166943f16db1c3f8f0c37f0fd0a064e53d5b54",
+    "1.ppm": "9efe43e31904e380ad7b64ab85e1264854e5df3a6c031906bbaae8066141bd2d",
+    "2.ppm": "83b993e18da471a86ef00e477b221524c667cb1b66190a573755a5e45d8b7ca0",
+    "3.ppm": "2b0a7868ec5f499debbdb96b06d0c119dd4a8ec7dfaef69186d4e1558b6a6bc3",
+    "4.ppm": "18193ba9b7b70889ab2d44384154196b5e63dfbe3c4457ba58877ed255c2e5ed"
+  },
+  "cases": [
+    {
+      "source": "decoded_image_sequence",
+      "input": [
+        1920,
+        1080
+      ],
+      "processing": [
+        1280,
+        720
+      ],
+      "output_buffer": [
+        1280,
+        720
+      ],
+      "presented_surface": null,
+      "presented_fps": null,
+      "source_fps_measured": null,
+      "profile": "performance",
+      "filter": "area",
+      "enabled": true,
+      "multiplier": 2,
+      "generated_frames": 1,
+      "scene_cut": false,
+      "repeats": 9,
+      "median_pair_ms": 245.95097,
+      "min_pair_ms": 236.7453,
+      "max_pair_ms": 281.68444,
+      "preparation_mean_ms": 84.065173,
+      "motion_mean_ms": 3.0248174,
+      "interpolation_mean_ms": 159.65413,
+      "output_scaling_mean_ms": 1.9178836,
+      "image_buffer_bytes": 31334400,
+      "working_buffer_bound_bytes": 53458560,
+      "source_interval_metadata_ms": 80,
+      "estimated_lookahead_ms": 80,
+      "estimated_pipeline_latency_ms": 321.02532,
+      "measured_end_to_end_latency_ms": null,
+      "over_budget": true,
+      "quality": [
+        {
+          "t": 0.5,
+          "psnr_db": 28.371615,
+          "nearest_original_psnr_db": 26.920944
+        }
+      ],
+      "stage": "retained-v01",
+      "max_channel_error_vs_v01": 0,
+      "mse_vs_v01": 0,
+      "speedup_vs_v01": 1.0
+    },
+    {
+      "source": "decoded_image_sequence",
+      "input": [
+        1920,
+        1080
+      ],
+      "processing": [
+        1280,
+        720
+      ],
+      "output_buffer": [
+        1280,
+        720
+      ],
+      "presented_surface": null,
+      "presented_fps": null,
+      "source_fps_measured": null,
+      "profile": "performance",
+      "filter": "area",
+      "enabled": true,
+      "kernels": "reference",
+      "threads": 1,
+      "simd": true,
+      "reuse": true,
+      "direct": true,
+      "motion_early_exit": true,
+      "image_allocations_last_pair": 6,
+      "copied_image_bytes_last_pair": 11059200,
+      "multiplier": 2,
+      "generated_frames": 1,
+      "scene_cut": false,
+      "repeats": 9,
+      "median_pair_ms": 239.32446,
+      "min_pair_ms": 227.34624,
+      "max_pair_ms": 244.9962,
+      "preparation_mean_ms": 76.2018,
+      "motion_mean_ms": 3.177177,
+      "interpolation_mean_ms": 157.18618,
+      "output_scaling_mean_ms": 1.5033679,
+      "image_buffer_bytes": 31334400,
+      "working_buffer_bound_bytes": 53458560,
+      "source_interval_metadata_ms": 80,
+      "estimated_lookahead_ms": 80,
+      "estimated_pipeline_latency_ms": 319.32446,
+      "measured_end_to_end_latency_ms": null,
+      "over_budget": true,
+      "quality": [
+        {
+          "t": 0.5,
+          "psnr_db": 28.371615,
+          "nearest_original_psnr_db": 26.920944
+        }
+      ],
+      "stage": "reference-v02",
+      "max_channel_error_vs_v01": 0,
+      "mse_vs_v01": 0,
+      "speedup_vs_v01": 1.0276883942410233
+    },
+    {
+      "source": "decoded_image_sequence",
+      "input": [
+        1920,
+        1080
+      ],
+      "processing": [
+        1280,
+        720
+      ],
+      "output_buffer": [
+        1280,
+        720
+      ],
+      "presented_surface": null,
+      "presented_fps": null,
+      "source_fps_measured": null,
+      "profile": "performance",
+      "filter": "area",
+      "enabled": true,
+      "kernels": "fast",
+      "threads": 1,
+      "simd": false,
+      "reuse": false,
+      "direct": false,
+      "motion_early_exit": false,
+      "image_allocations_last_pair": 8,
+      "copied_image_bytes_last_pair": 7372800,
+      "multiplier": 2,
+      "generated_frames": 1,
+      "scene_cut": false,
+      "repeats": 9,
+      "median_pair_ms": 130.45931,
+      "min_pair_ms": 127.62953,
+      "max_pair_ms": 144.92884,
+      "preparation_mean_ms": 23.208249,
+      "motion_mean_ms": 3.2932557,
+      "interpolation_mean_ms": 102.21152,
+      "output_scaling_mean_ms": 0.54426922,
+      "image_buffer_bytes": 35020800,
+      "working_buffer_bound_bytes": 46085760,
+      "source_interval_metadata_ms": 80,
+      "estimated_lookahead_ms": 80,
+      "estimated_pipeline_latency_ms": 210.45931,
+      "measured_end_to_end_latency_ms": null,
+      "over_budget": true,
+      "quality": [
+        {
+          "t": 0.5,
+          "psnr_db": 28.371615,
+          "nearest_original_psnr_db": 26.920944
+        }
+      ],
+      "stage": "scalar-kernels",
+      "max_channel_error_vs_v01": 0,
+      "mse_vs_v01": 0,
+      "speedup_vs_v01": 1.8852695909552184
+    },
+    {
+      "source": "decoded_image_sequence",
+      "input": [
+        1920,
+        1080
+      ],
+      "processing": [
+        1280,
+        720
+      ],
+      "output_buffer": [
+        1280,
+        720
+      ],
+      "presented_surface": null,
+      "presented_fps": null,
+      "source_fps_measured": null,
+      "profile": "performance",
+      "filter": "area",
+      "enabled": true,
+      "kernels": "fast",
+      "threads": 1,
+      "simd": true,
+      "reuse": false,
+      "direct": false,
+      "motion_early_exit": false,
+      "image_allocations_last_pair": 8,
+      "copied_image_bytes_last_pair": 7372800,
+      "multiplier": 2,
+      "generated_frames": 1,
+      "scene_cut": false,
+      "repeats": 9,
+      "median_pair_ms": 113.34507,
+      "min_pair_ms": 107.55375,
+      "max_pair_ms": 140.7962,
+      "preparation_mean_ms": 23.15065,
+      "motion_mean_ms": 3.3140909,
+      "interpolation_mean_ms": 88.352615,
+      "output_scaling_mean_ms": 0.50797356,
+      "image_buffer_bytes": 35020800,
+      "working_buffer_bound_bytes": 46085760,
+      "source_interval_metadata_ms": 80,
+      "estimated_lookahead_ms": 80,
+      "estimated_pipeline_latency_ms": 192.32021,
+      "measured_end_to_end_latency_ms": null,
+      "over_budget": true,
+      "quality": [
+        {
+          "t": 0.5,
+          "psnr_db": 28.371615,
+          "nearest_original_psnr_db": 26.920944
+        }
+      ],
+      "stage": "sse2",
+      "max_channel_error_vs_v01": 0,
+      "mse_vs_v01": 0,
+      "speedup_vs_v01": 2.1699309021556914
+    },
+    {
+      "source": "decoded_image_sequence",
+      "input": [
+        1920,
+        1080
+      ],
+      "processing": [
+        1280,
+        720
+      ],
+      "output_buffer": [
+        1280,
+        720
+      ],
+      "presented_surface": null,
+      "presented_fps": null,
+      "source_fps_measured": null,
+      "profile": "performance",
+      "filter": "area",
+      "enabled": true,
+      "kernels": "fast",
+      "threads": 1,
+      "simd": true,
+      "reuse": false,
+      "direct": true,
+      "motion_early_exit": false,
+      "image_allocations_last_pair": 7,
+      "copied_image_bytes_last_pair": 3686400,
+      "multiplier": 2,
+      "generated_frames": 1,
+      "scene_cut": false,
+      "repeats": 9,
+      "median_pair_ms": 122.27988,
+      "min_pair_ms": 110.83632,
+      "max_pair_ms": 133.35375,
+      "preparation_mean_ms": 23.407838,
+      "motion_mean_ms": 3.8831833,
+      "interpolation_mean_ms": 90.196849,
+      "output_scaling_mean_ms": 0.220452,
+      "image_buffer_bytes": 31334404,
+      "working_buffer_bound_bytes": 42399364,
+      "source_interval_metadata_ms": 80,
+      "estimated_lookahead_ms": 80,
+      "estimated_pipeline_latency_ms": 194.53658,
+      "measured_end_to_end_latency_ms": null,
+      "over_budget": true,
+      "quality": [
+        {
+          "t": 0.5,
+          "psnr_db": 28.371615,
+          "nearest_original_psnr_db": 26.920944
+        }
+      ],
+      "stage": "direct-buffers",
+      "max_channel_error_vs_v01": 0,
+      "mse_vs_v01": 0,
+      "speedup_vs_v01": 2.011377260101989
+    },
+    {
+      "source": "decoded_image_sequence",
+      "input": [
+        1920,
+        1080
+      ],
+      "processing": [
+        1280,
+        720
+      ],
+      "output_buffer": [
+        1280,
+        720
+      ],
+      "presented_surface": null,
+      "presented_fps": null,
+      "source_fps_measured": null,
+      "profile": "performance",
+      "filter": "area",
+      "enabled": true,
+      "kernels": "fast",
+      "threads": 1,
+      "simd": true,
+      "reuse": true,
+      "direct": true,
+      "motion_early_exit": false,
+      "image_allocations_last_pair": 0,
+      "copied_image_bytes_last_pair": 3686400,
+      "multiplier": 2,
+      "generated_frames": 1,
+      "scene_cut": false,
+      "repeats": 9,
+      "median_pair_ms": 111.65572,
+      "min_pair_ms": 107.17861,
+      "max_pair_ms": 115.73751,
+      "preparation_mean_ms": 21.870133,
+      "motion_mean_ms": 3.3081658,
+      "interpolation_mean_ms": 86.197421,
+      "output_scaling_mean_ms": 0.220196,
+      "image_buffer_bytes": 31334404,
+      "working_buffer_bound_bytes": 42399364,
+      "source_interval_metadata_ms": 80,
+      "estimated_lookahead_ms": 80,
+      "estimated_pipeline_latency_ms": 192.51099,
+      "measured_end_to_end_latency_ms": null,
+      "over_budget": true,
+      "quality": [
+        {
+          "t": 0.5,
+          "psnr_db": 28.371615,
+          "nearest_original_psnr_db": 26.920944
+        }
+      ],
+      "stage": "reused-storage",
+      "max_channel_error_vs_v01": 0,
+      "mse_vs_v01": 0,
+      "speedup_vs_v01": 2.2027619364238573
+    },
+    {
+      "source": "decoded_image_sequence",
+      "input": [
+        1920,
+        1080
+      ],
+      "processing": [
+        1280,
+        720
+      ],
+      "output_buffer": [
+        1280,
+        720
+      ],
+      "presented_surface": null,
+      "presented_fps": null,
+      "source_fps_measured": null,
+      "profile": "performance",
+      "filter": "area",
+      "enabled": true,
+      "kernels": "fast",
+      "threads": 2,
+      "simd": true,
+      "reuse": true,
+      "direct": true,
+      "motion_early_exit": false,
+      "image_allocations_last_pair": 0,
+      "copied_image_bytes_last_pair": 3686400,
+      "multiplier": 2,
+      "generated_frames": 1,
+      "scene_cut": false,
+      "repeats": 9,
+      "median_pair_ms": 59.113558,
+      "min_pair_ms": 56.355675,
+      "max_pair_ms": 111.17338,
+      "preparation_mean_ms": 11.016163,
+      "motion_mean_ms": 3.1115089,
+      "interpolation_mean_ms": 49.892033,
+      "output_scaling_mean_ms": 0.30350178,
+      "image_buffer_bytes": 31334404,
+      "working_buffer_bound_bytes": 42399364,
+      "source_interval_metadata_ms": 80,
+      "estimated_lookahead_ms": 80,
+      "estimated_pipeline_latency_ms": 137.25829,
+      "measured_end_to_end_latency_ms": null,
+      "over_budget": false,
+      "quality": [
+        {
+          "t": 0.5,
+          "psnr_db": 28.371615,
+          "nearest_original_psnr_db": 26.920944
+        }
+      ],
+      "stage": "workers-2",
+      "max_channel_error_vs_v01": 0,
+      "mse_vs_v01": 0,
+      "speedup_vs_v01": 4.160652451337814
+    },
+    {
+      "source": "decoded_image_sequence",
+      "input": [
+        1920,
+        1080
+      ],
+      "processing": [
+        1280,
+        720
+      ],
+      "output_buffer": [
+        1280,
+        720
+      ],
+      "presented_surface": null,
+      "presented_fps": null,
+      "source_fps_measured": null,
+      "profile": "performance",
+      "filter": "area",
+      "enabled": true,
+      "kernels": "fast",
+      "threads": 4,
+      "simd": true,
+      "reuse": true,
+      "direct": true,
+      "motion_early_exit": false,
+      "image_allocations_last_pair": 0,
+      "copied_image_bytes_last_pair": 3686400,
+      "multiplier": 2,
+      "generated_frames": 1,
+      "scene_cut": false,
+      "repeats": 9,
+      "median_pair_ms": 43.197053,
+      "min_pair_ms": 30.141153,
+      "max_pair_ms": 45.098317,
+      "preparation_mean_ms": 8.043762,
+      "motion_mean_ms": 3.0584421,
+      "interpolation_mean_ms": 28.242477,
+      "output_scaling_mean_ms": 0.20512822,
+      "image_buffer_bytes": 31334404,
+      "working_buffer_bound_bytes": 42399364,
+      "source_interval_metadata_ms": 80,
+      "estimated_lookahead_ms": 80,
+      "estimated_pipeline_latency_ms": 123.43983,
+      "measured_end_to_end_latency_ms": null,
+      "over_budget": false,
+      "quality": [
+        {
+          "t": 0.5,
+          "psnr_db": 28.371615,
+          "nearest_original_psnr_db": 26.920944
+        }
+      ],
+      "stage": "workers-4",
+      "max_channel_error_vs_v01": 0,
+      "mse_vs_v01": 0,
+      "speedup_vs_v01": 5.693697901104504
+    },
+    {
+      "source": "decoded_image_sequence",
+      "input": [
+        1920,
+        1080
+      ],
+      "processing": [
+        1280,
+        720
+      ],
+      "output_buffer": [
+        1280,
+        720
+      ],
+      "presented_surface": null,
+      "presented_fps": null,
+      "source_fps_measured": null,
+      "profile": "performance",
+      "filter": "area",
+      "enabled": true,
+      "kernels": "fast",
+      "threads": 4,
+      "simd": true,
+      "reuse": true,
+      "direct": true,
+      "motion_early_exit": true,
+      "image_allocations_last_pair": 0,
+      "copied_image_bytes_last_pair": 3686400,
+      "multiplier": 2,
+      "generated_frames": 1,
+      "scene_cut": false,
+      "repeats": 9,
+      "median_pair_ms": 31.681364,
+      "min_pair_ms": 31.313319,
+      "max_pair_ms": 43.051477,
+      "preparation_mean_ms": 6.5846383,
+      "motion_mean_ms": 2.9580549,
+      "interpolation_mean_ms": 23.634227,
+      "output_scaling_mean_ms": 0.193858,
+      "image_buffer_bytes": 31334404,
+      "working_buffer_bound_bytes": 42399364,
+      "source_interval_metadata_ms": 80,
+      "estimated_lookahead_ms": 80,
+      "estimated_pipeline_latency_ms": 112.31993,
+      "measured_end_to_end_latency_ms": null,
+      "over_budget": false,
+      "quality": [
+        {
+          "t": 0.5,
+          "psnr_db": 28.371615,
+          "nearest_original_psnr_db": 26.920944
+        }
+      ],
+      "stage": "motion-early",
+      "max_channel_error_vs_v01": 0,
+      "mse_vs_v01": 0,
+      "speedup_vs_v01": 7.763269599124584
+    },
+    {
+      "source": "decoded_image_sequence",
+      "input": [
+        1920,
+        1080
+      ],
+      "processing": [
+        1280,
+        720
+      ],
+      "output_buffer": [
+        1280,
+        720
+      ],
+      "presented_surface": null,
+      "presented_fps": null,
+      "source_fps_measured": null,
+      "profile": "performance",
+      "filter": "area",
+      "enabled": true,
+      "multiplier": 3,
+      "generated_frames": 2,
+      "scene_cut": false,
+      "repeats": 9,
+      "median_pair_ms": 381.69795,
+      "min_pair_ms": 375.98345,
+      "max_pair_ms": 395.93233,
+      "preparation_mean_ms": 75.917445,
+      "motion_mean_ms": 3.0528172,
+      "interpolation_mean_ms": 301.42713,
+      "output_scaling_mean_ms": 2.3511317,
+      "image_buffer_bytes": 35020800,
+      "working_buffer_bound_bytes": 57144960,
+      "source_interval_metadata_ms": 120,
+      "estimated_lookahead_ms": 120,
+      "estimated_pipeline_latency_ms": 501.69795,
+      "measured_end_to_end_latency_ms": null,
+      "over_budget": true,
+      "quality": [
+        {
+          "t": 0.33333334,
+          "psnr_db": 27.664817,
+          "nearest_original_psnr_db": 26.920944
+        },
+        {
+          "t": 0.66666669,
+          "psnr_db": 28.346486,
+          "nearest_original_psnr_db": 27.485321
+        }
+      ],
+      "stage": "retained-v01-x3",
+      "max_channel_error_vs_v01": 0,
+      "speedup_vs_v01": 1.0
+    },
+    {
+      "source": "decoded_image_sequence",
+      "input": [
+        1920,
+        1080
+      ],
+      "processing": [
+        1280,
+        720
+      ],
+      "output_buffer": [
+        1280,
+        720
+      ],
+      "presented_surface": null,
+      "presented_fps": null,
+      "source_fps_measured": null,
+      "profile": "performance",
+      "filter": "area",
+      "enabled": true,
+      "multiplier": 4,
+      "generated_frames": 3,
+      "scene_cut": false,
+      "repeats": 9,
+      "median_pair_ms": 565.56494,
+      "min_pair_ms": 544.72574,
+      "max_pair_ms": 614.75709,
+      "preparation_mean_ms": 80.584472,
+      "motion_mean_ms": 3.8266824,
+      "interpolation_mean_ms": 483.98888,
+      "output_scaling_mean_ms": 3.6640807,
+      "image_buffer_bytes": 38707200,
+      "working_buffer_bound_bytes": 60831360,
+      "source_interval_metadata_ms": 160,
+      "estimated_lookahead_ms": 160,
+      "estimated_pipeline_latency_ms": 774.75709,
+      "measured_end_to_end_latency_ms": null,
+      "over_budget": true,
+      "quality": [
+        {
+          "t": 0.25,
+          "psnr_db": 28.51359,
+          "nearest_original_psnr_db": 26.920944
+        },
+        {
+          "t": 0.5,
+          "psnr_db": 27.711522,
+          "nearest_original_psnr_db": 23.990814
+        },
+        {
+          "t": 0.75,
+          "psnr_db": 29.035122,
+          "nearest_original_psnr_db": 28.445407
+        }
+      ],
+      "stage": "retained-v01-x4",
+      "max_channel_error_vs_v01": 0,
+      "speedup_vs_v01": 1.0
+    },
+    {
+      "source": "decoded_image_sequence",
+      "input": [
+        1920,
+        1080
+      ],
+      "processing": [
+        1920,
+        1080
+      ],
+      "output_buffer": [
+        1280,
+        720
+      ],
+      "presented_surface": null,
+      "presented_fps": null,
+      "source_fps_measured": null,
+      "profile": "performance",
+      "filter": "area",
+      "enabled": true,
+      "kernels": "fast",
+      "threads": 4,
+      "simd": true,
+      "reuse": true,
+      "direct": true,
+      "motion_early_exit": true,
+      "image_allocations_last_pair": 0,
+      "copied_image_bytes_last_pair": 0,
+      "multiplier": 2,
+      "generated_frames": 1,
+      "scene_cut": false,
+      "repeats": 9,
+      "median_pair_ms": 70.412837,
+      "min_pair_ms": 59.109071,
+      "max_pair_ms": 87.346383,
+      "preparation_mean_ms": 3.2222222e-05,
+      "motion_mean_ms": 3.0381223,
+      "interpolation_mean_ms": 60.856504,
+      "output_scaling_mean_ms": 8.3602138,
+      "image_buffer_bytes": 32256008,
+      "working_buffer_bound_bytes": 43320968,
+      "source_interval_metadata_ms": 80,
+      "estimated_lookahead_ms": 80,
+      "estimated_pipeline_latency_ms": 139.70029,
+      "measured_end_to_end_latency_ms": null,
+      "over_budget": false,
+      "quality": [
+        {
+          "t": 0.5,
+          "psnr_db": 27.914071,
+          "nearest_original_psnr_db": 26.920944
+        }
+      ],
+      "stage": "process-1080-x2",
+      "speedup_vs_v01": 3.4929848090057787
+    },
+    {
+      "source": "decoded_image_sequence",
+      "input": [
+        1920,
+        1080
+      ],
+      "processing": [
+        960,
+        540
+      ],
+      "output_buffer": [
+        1280,
+        720
+      ],
+      "presented_surface": null,
+      "presented_fps": null,
+      "source_fps_measured": null,
+      "profile": "performance",
+      "filter": "area",
+      "enabled": true,
+      "kernels": "fast",
+      "threads": 4,
+      "simd": true,
+      "reuse": true,
+      "direct": true,
+      "motion_early_exit": true,
+      "image_allocations_last_pair": 0,
+      "copied_image_bytes_last_pair": 0,
+      "multiplier": 2,
+      "generated_frames": 1,
+      "scene_cut": false,
+      "repeats": 9,
+      "median_pair_ms": 36.106295,
+      "min_pair_ms": 34.237519,
+      "max_pair_ms": 36.547089,
+      "preparation_mean_ms": 5.1848383,
+      "motion_mean_ms": 2.910786,
+      "interpolation_mean_ms": 17.753906,
+      "output_scaling_mean_ms": 9.8496987,
+      "image_buffer_bytes": 30182400,
+      "working_buffer_bound_bytes": 41247360,
+      "source_interval_metadata_ms": 80,
+      "estimated_lookahead_ms": 80,
+      "estimated_pipeline_latency_ms": 116.13642,
+      "measured_end_to_end_latency_ms": null,
+      "over_budget": false,
+      "quality": [
+        {
+          "t": 0.5,
+          "psnr_db": 28.658995,
+          "nearest_original_psnr_db": 26.920944
+        }
+      ],
+      "stage": "process-540-x2",
+      "speedup_vs_v01": 6.8118584307805605
+    },
+    {
+      "source": "decoded_image_sequence",
+      "input": [
+        1920,
+        1080
+      ],
+      "processing": [
+        640,
+        360
+      ],
+      "output_buffer": [
+        1280,
+        720
+      ],
+      "presented_surface": null,
+      "presented_fps": null,
+      "source_fps_measured": null,
+      "profile": "performance",
+      "filter": "area",
+      "enabled": true,
+      "kernels": "fast",
+      "threads": 4,
+      "simd": true,
+      "reuse": true,
+      "direct": true,
+      "motion_early_exit": true,
+      "image_allocations_last_pair": 0,
+      "copied_image_bytes_last_pair": 0,
+      "multiplier": 2,
+      "generated_frames": 1,
+      "scene_cut": false,
+      "repeats": 9,
+      "median_pair_ms": 25.22746,
+      "min_pair_ms": 24.184926,
+      "max_pair_ms": 25.658357,
+      "preparation_mean_ms": 4.625281,
+      "motion_mean_ms": 2.7231884,
+      "interpolation_mean_ms": 7.9025889,
+      "output_scaling_mean_ms": 9.7703494,
+      "image_buffer_bytes": 26726400,
+      "working_buffer_bound_bytes": 37791360,
+      "source_interval_metadata_ms": 80,
+      "estimated_lookahead_ms": 80,
+      "estimated_pipeline_latency_ms": 105.27788,
+      "measured_end_to_end_latency_ms": null,
+      "over_budget": false,
+      "quality": [
+        {
+          "t": 0.5,
+          "psnr_db": 28.974039,
+          "nearest_original_psnr_db": 26.920944
+        }
+      ],
+      "stage": "process-360-x2",
+      "speedup_vs_v01": 9.749335446374705
+    },
+    {
+      "source": "decoded_image_sequence",
+      "input": [
+        1920,
+        1080
+      ],
+      "processing": [
+        1920,
+        1080
+      ],
+      "output_buffer": [
+        1280,
+        720
+      ],
+      "presented_surface": null,
+      "presented_fps": null,
+      "source_fps_measured": null,
+      "profile": "performance",
+      "filter": "area",
+      "enabled": true,
+      "kernels": "fast",
+      "threads": 4,
+      "simd": true,
+      "reuse": true,
+      "direct": true,
+      "motion_early_exit": true,
+      "image_allocations_last_pair": 0,
+      "copied_image_bytes_last_pair": 0,
+      "multiplier": 3,
+      "generated_frames": 2,
+      "scene_cut": false,
+      "repeats": 9,
+      "median_pair_ms": 139.17449,
+      "min_pair_ms": 111.7377,
+      "max_pair_ms": 158.03414,
+      "preparation_mean_ms": 3.2222222e-05,
+      "motion_mean_ms": 2.9309303,
+      "interpolation_mean_ms": 120.49521,
+      "output_scaling_mean_ms": 11.594257,
+      "image_buffer_bytes": 35942408,
+      "working_buffer_bound_bytes": 47007368,
+      "source_interval_metadata_ms": 120,
+      "estimated_lookahead_ms": 120,
+      "estimated_pipeline_latency_ms": 233.20437,
+      "measured_end_to_end_latency_ms": null,
+      "over_budget": false,
+      "quality": [
+        {
+          "t": 0.33333334,
+          "psnr_db": 27.172792,
+          "nearest_original_psnr_db": 26.920944
+        },
+        {
+          "t": 0.66666669,
+          "psnr_db": 27.981102,
+          "nearest_original_psnr_db": 27.485321
+        }
+      ],
+      "stage": "process-1080-x3",
+      "speedup_vs_v01": 2.7425855844702576
+    },
+    {
+      "source": "decoded_image_sequence",
+      "input": [
+        1920,
+        1080
+      ],
+      "processing": [
+        960,
+        540
+      ],
+      "output_buffer": [
+        1280,
+        720
+      ],
+      "presented_surface": null,
+      "presented_fps": null,
+      "source_fps_measured": null,
+      "profile": "performance",
+      "filter": "area",
+      "enabled": true,
+      "kernels": "fast",
+      "threads": 4,
+      "simd": true,
+      "reuse": true,
+      "direct": true,
+      "motion_early_exit": true,
+      "image_allocations_last_pair": 0,
+      "copied_image_bytes_last_pair": 0,
+      "multiplier": 3,
+      "generated_frames": 2,
+      "scene_cut": false,
+      "repeats": 9,
+      "median_pair_ms": 59.903427,
+      "min_pair_ms": 46.699349,
+      "max_pair_ms": 76.687356,
+      "preparation_mean_ms": 4.4864092,
+      "motion_mean_ms": 3.3020351,
+      "interpolation_mean_ms": 36.30742,
+      "output_scaling_mean_ms": 14.487407,
+      "image_buffer_bytes": 33868800,
+      "working_buffer_bound_bytes": 44933760,
+      "source_interval_metadata_ms": 120,
+      "estimated_lookahead_ms": 120,
+      "estimated_pipeline_latency_ms": 180.16919,
+      "measured_end_to_end_latency_ms": null,
+      "over_budget": false,
+      "quality": [
+        {
+          "t": 0.33333334,
+          "psnr_db": 28.142281,
+          "nearest_original_psnr_db": 26.920944
+        },
+        {
+          "t": 0.66666669,
+          "psnr_db": 28.917004,
+          "nearest_original_psnr_db": 27.485321
+        }
+      ],
+      "stage": "process-540-x3",
+      "speedup_vs_v01": 6.37188837293065
+    },
+    {
+      "source": "decoded_image_sequence",
+      "input": [
+        1920,
+        1080
+      ],
+      "processing": [
+        640,
+        360
+      ],
+      "output_buffer": [
+        1280,
+        720
+      ],
+      "presented_surface": null,
+      "presented_fps": null,
+      "source_fps_measured": null,
+      "profile": "performance",
+      "filter": "area",
+      "enabled": true,
+      "kernels": "fast",
+      "threads": 4,
+      "simd": true,
+      "reuse": true,
+      "direct": true,
+      "motion_early_exit": true,
+      "image_allocations_last_pair": 0,
+      "copied_image_bytes_last_pair": 0,
+      "multiplier": 3,
+      "generated_frames": 2,
+      "scene_cut": false,
+      "repeats": 9,
+      "median_pair_ms": 37.935464,
+      "min_pair_ms": 33.915252,
+      "max_pair_ms": 40.461008,
+      "preparation_mean_ms": 4.7797664,
+      "motion_mean_ms": 2.978463,
+      "interpolation_mean_ms": 15.154916,
+      "output_scaling_mean_ms": 14.672397,
+      "image_buffer_bytes": 30412800,
+      "working_buffer_bound_bytes": 41477760,
+      "source_interval_metadata_ms": 120,
+      "estimated_lookahead_ms": 120,
+      "estimated_pipeline_latency_ms": 160.46101,
+      "measured_end_to_end_latency_ms": null,
+      "over_budget": false,
+      "quality": [
+        {
+          "t": 0.33333334,
+          "psnr_db": 28.966582,
+          "nearest_original_psnr_db": 26.920944
+        },
+        {
+          "t": 0.66666669,
+          "psnr_db": 29.492363,
+          "nearest_original_psnr_db": 27.485321
+        }
+      ],
+      "stage": "process-360-x3",
+      "speedup_vs_v01": 10.061770959226964
+    },
+    {
+      "source": "decoded_image_sequence",
+      "input": [
+        1920,
+        1080
+      ],
+      "processing": [
+        1280,
+        720
+      ],
+      "output_buffer": [
+        1280,
+        720
+      ],
+      "presented_surface": null,
+      "presented_fps": null,
+      "source_fps_measured": null,
+      "profile": "performance",
+      "filter": "area",
+      "enabled": true,
+      "kernels": "fast",
+      "threads": 4,
+      "simd": true,
+      "reuse": true,
+      "direct": true,
+      "motion_early_exit": true,
+      "image_allocations_last_pair": 0,
+      "copied_image_bytes_last_pair": 3686400,
+      "multiplier": 3,
+      "generated_frames": 2,
+      "scene_cut": false,
+      "repeats": 9,
+      "median_pair_ms": 72.1717,
+      "min_pair_ms": 63.950086,
+      "max_pair_ms": 75.729066,
+      "preparation_mean_ms": 8.9670922,
+      "motion_mean_ms": 2.9741457,
+      "interpolation_mean_ms": 58.954694,
+      "output_scaling_mean_ms": 0.26487767,
+      "image_buffer_bytes": 35020804,
+      "working_buffer_bound_bytes": 46085764,
+      "source_interval_metadata_ms": 120,
+      "estimated_lookahead_ms": 120,
+      "estimated_pipeline_latency_ms": 183.95009,
+      "measured_end_to_end_latency_ms": null,
+      "over_budget": false,
+      "quality": [
+        {
+          "t": 0.33333334,
+          "psnr_db": 27.664817,
+          "nearest_original_psnr_db": 26.920944
+        },
+        {
+          "t": 0.66666669,
+          "psnr_db": 28.346486,
+          "nearest_original_psnr_db": 27.485321
+        }
+      ],
+      "stage": "process-720-x3",
+      "max_channel_error_vs_v01": 0,
+      "speedup_vs_v01": 5.2887482212557
+    },
+    {
+      "source": "decoded_image_sequence",
+      "input": [
+        1920,
+        1080
+      ],
+      "processing": [
+        1920,
+        1080
+      ],
+      "output_buffer": [
+        1280,
+        720
+      ],
+      "presented_surface": null,
+      "presented_fps": null,
+      "source_fps_measured": null,
+      "profile": "performance",
+      "filter": "area",
+      "enabled": true,
+      "kernels": "fast",
+      "threads": 4,
+      "simd": true,
+      "reuse": true,
+      "direct": true,
+      "motion_early_exit": true,
+      "image_allocations_last_pair": 0,
+      "copied_image_bytes_last_pair": 0,
+      "multiplier": 4,
+      "generated_frames": 3,
+      "scene_cut": false,
+      "repeats": 9,
+      "median_pair_ms": 207.28469,
+      "min_pair_ms": 194.36073,
+      "max_pair_ms": 227.67568,
+      "preparation_mean_ms": 3.3333333e-05,
+      "motion_mean_ms": 3.0499659,
+      "interpolation_mean_ms": 190.14457,
+      "output_scaling_mean_ms": 15.825087,
+      "image_buffer_bytes": 39628808,
+      "working_buffer_bound_bytes": 50693768,
+      "source_interval_metadata_ms": 160,
+      "estimated_lookahead_ms": 160,
+      "estimated_pipeline_latency_ms": 359.74601,
+      "measured_end_to_end_latency_ms": null,
+      "over_budget": true,
+      "quality": [
+        {
+          "t": 0.25,
+          "psnr_db": 28.275082,
+          "nearest_original_psnr_db": 26.920944
+        },
+        {
+          "t": 0.5,
+          "psnr_db": 27.487214,
+          "nearest_original_psnr_db": 23.990814
+        },
+        {
+          "t": 0.75,
+          "psnr_db": 28.806703,
+          "nearest_original_psnr_db": 28.445407
+        }
+      ],
+      "stage": "process-1080-x4",
+      "speedup_vs_v01": 2.7284453087200986
+    },
+    {
+      "source": "decoded_image_sequence",
+      "input": [
+        1920,
+        1080
+      ],
+      "processing": [
+        960,
+        540
+      ],
+      "output_buffer": [
+        1280,
+        720
+      ],
+      "presented_surface": null,
+      "presented_fps": null,
+      "source_fps_measured": null,
+      "profile": "performance",
+      "filter": "area",
+      "enabled": true,
+      "kernels": "fast",
+      "threads": 4,
+      "simd": true,
+      "reuse": true,
+      "direct": true,
+      "motion_early_exit": true,
+      "image_allocations_last_pair": 0,
+      "copied_image_bytes_last_pair": 0,
+      "multiplier": 4,
+      "generated_frames": 3,
+      "scene_cut": false,
+      "repeats": 9,
+      "median_pair_ms": 74.594934,
+      "min_pair_ms": 60.694123,
+      "max_pair_ms": 81.006871,
+      "preparation_mean_ms": 4.8138623,
+      "motion_mean_ms": 2.9882272,
+      "interpolation_mean_ms": 47.725354,
+      "output_scaling_mean_ms": 17.570392,
+      "image_buffer_bytes": 37555200,
+      "working_buffer_bound_bytes": 48620160,
+      "source_interval_metadata_ms": 160,
+      "estimated_lookahead_ms": 160,
+      "estimated_pipeline_latency_ms": 224.9142,
+      "measured_end_to_end_latency_ms": null,
+      "over_budget": false,
+      "quality": [
+        {
+          "t": 0.25,
+          "psnr_db": 28.546277,
+          "nearest_original_psnr_db": 26.920944
+        },
+        {
+          "t": 0.5,
+          "psnr_db": 27.624587,
+          "nearest_original_psnr_db": 23.990814
+        },
+        {
+          "t": 0.75,
+          "psnr_db": 29.129889,
+          "nearest_original_psnr_db": 28.445407
+        }
+      ],
+      "stage": "process-540-x4",
+      "speedup_vs_v01": 7.5818143360781045
+    },
+    {
+      "source": "decoded_image_sequence",
+      "input": [
+        1920,
+        1080
+      ],
+      "processing": [
+        640,
+        360
+      ],
+      "output_buffer": [
+        1280,
+        720
+      ],
+      "presented_surface": null,
+      "presented_fps": null,
+      "source_fps_measured": null,
+      "profile": "performance",
+      "filter": "area",
+      "enabled": true,
+      "kernels": "fast",
+      "threads": 4,
+      "simd": true,
+      "reuse": true,
+      "direct": true,
+      "motion_early_exit": true,
+      "image_allocations_last_pair": 0,
+      "copied_image_bytes_last_pair": 0,
+      "multiplier": 4,
+      "generated_frames": 3,
+      "scene_cut": false,
+      "repeats": 9,
+      "median_pair_ms": 49.445083,
+      "min_pair_ms": 36.201236,
+      "max_pair_ms": 61.717959,
+      "preparation_mean_ms": 4.2221909,
+      "motion_mean_ms": 2.962386,
+      "interpolation_mean_ms": 22.608399,
+      "output_scaling_mean_ms": 18.885641,
+      "image_buffer_bytes": 34099200,
+      "working_buffer_bound_bytes": 45164160,
+      "source_interval_metadata_ms": 160,
+      "estimated_lookahead_ms": 160,
+      "estimated_pipeline_latency_ms": 209.44508,
+      "measured_end_to_end_latency_ms": null,
+      "over_budget": false,
+      "quality": [
+        {
+          "t": 0.25,
+          "psnr_db": 28.843455,
+          "nearest_original_psnr_db": 26.920944
+        },
+        {
+          "t": 0.5,
+          "psnr_db": 27.85706,
+          "nearest_original_psnr_db": 23.990814
+        },
+        {
+          "t": 0.75,
+          "psnr_db": 29.327841,
+          "nearest_original_psnr_db": 28.445407
+        }
+      ],
+      "stage": "process-360-x4",
+      "speedup_vs_v01": 11.438244324516555
+    },
+    {
+      "source": "decoded_image_sequence",
+      "input": [
+        1920,
+        1080
+      ],
+      "processing": [
+        1280,
+        720
+      ],
+      "output_buffer": [
+        1280,
+        720
+      ],
+      "presented_surface": null,
+      "presented_fps": null,
+      "source_fps_measured": null,
+      "profile": "performance",
+      "filter": "area",
+      "enabled": true,
+      "kernels": "fast",
+      "threads": 4,
+      "simd": true,
+      "reuse": true,
+      "direct": true,
+      "motion_early_exit": true,
+      "image_allocations_last_pair": 0,
+      "copied_image_bytes_last_pair": 3686400,
+      "multiplier": 4,
+      "generated_frames": 3,
+      "scene_cut": false,
+      "repeats": 9,
+      "median_pair_ms": 92.452567,
+      "min_pair_ms": 79.961768,
+      "max_pair_ms": 109.48647,
+      "preparation_mean_ms": 7.7531747,
+      "motion_mean_ms": 2.9390871,
+      "interpolation_mean_ms": 82.865149,
+      "output_scaling_mean_ms": 0.25090589,
+      "image_buffer_bytes": 38707204,
+      "working_buffer_bound_bytes": 49772164,
+      "source_interval_metadata_ms": 160,
+      "estimated_lookahead_ms": 160,
+      "estimated_pipeline_latency_ms": 242.69461,
+      "measured_end_to_end_latency_ms": null,
+      "over_budget": false,
+      "quality": [
+        {
+          "t": 0.25,
+          "psnr_db": 28.51359,
+          "nearest_original_psnr_db": 26.920944
+        },
+        {
+          "t": 0.5,
+          "psnr_db": 27.711522,
+          "nearest_original_psnr_db": 23.990814
+        },
+        {
+          "t": 0.75,
+          "psnr_db": 29.035122,
+          "nearest_original_psnr_db": 28.445407
+        }
+      ],
+      "stage": "process-720-x4",
+      "max_channel_error_vs_v01": 0,
+      "speedup_vs_v01": 6.117352479785661
+    }
+  ]
+}

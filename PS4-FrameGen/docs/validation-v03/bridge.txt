@@ -1,0 +1,1 @@
+PASS cooperative ABI, actual frame capture/interpolation, L3 R3, offline-vs-flip accounting, bounds, reentry callback failure, confirmed timestamps, consumer discards and live deadline bypass

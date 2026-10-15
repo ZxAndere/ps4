@@ -1,0 +1,12 @@
+{
+  "object_sha256": "fa24a6e9d2529942fdf4bfd326bac230f947255fb45163a5725a04e272a71011",
+  "instruction_occurrences": {
+    "mulps": 133,
+    "addps": 137,
+    "divps": 15,
+    "paddw": 1,
+    "punpcklbw": 52,
+    "cvttps2dq": 38
+  },
+  "executed_on_jaguar": false
+}

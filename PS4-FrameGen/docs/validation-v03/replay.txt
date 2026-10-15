@@ -1,0 +1,1 @@
+Measured offline pair replay and deadline readiness. No display flips or input-to-photon measurement.

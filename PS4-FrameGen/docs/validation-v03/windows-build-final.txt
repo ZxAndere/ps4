@@ -1,0 +1,51 @@
+[  3%] Building CXX object CMakeFiles/framegen.dir/engine/motion/block_match.cpp.obj
+[  6%] Building CXX object CMakeFiles/framegen.dir/engine/interpolation/interpolate.cpp.obj
+[ 10%] Building CXX object CMakeFiles/framegen.dir/engine/scaling/scale.cpp.obj
+[ 13%] Building CXX object CMakeFiles/framegen.dir/engine/capture/image.cpp.obj
+[ 16%] Building CXX object CMakeFiles/framegen.dir/engine/performance/pipeline.cpp.obj
+[ 20%] Building CXX object CMakeFiles/framegen.dir/engine/presentation/monitor.cpp.obj
+[ 23%] Building CXX object CMakeFiles/framegen.dir/engine/optimized/processor.cpp.obj
+[ 26%] Building CXX object CMakeFiles/framegen.dir/engine/performance/runtime.cpp.obj
+[ 30%] Building CXX object CMakeFiles/framegen.dir/overlay/input/controller.cpp.obj
+[ 33%] Building CXX object CMakeFiles/framegen.dir/overlay/settings/settings.cpp.obj
+/workspace/ps4/PS4-FrameGen/overlay/settings/settings.cpp:6:9: warning: "NOMINMAX" redefined
+    6 | #define NOMINMAX
+      |         ^~~~~~~~
+In file included from /workspace/framegen-toolchains/mingw/usr/lib/gcc/x86_64-w64-mingw32/14-posix/include/c++/x86_64-w64-mingw32/bits/c++config.h:683,
+                 from /workspace/framegen-toolchains/mingw/usr/lib/gcc/x86_64-w64-mingw32/14-posix/include/c++/cstdint:38,
+                 from /workspace/ps4/PS4-FrameGen/engine/framegen.hpp:2,
+                 from /workspace/ps4/PS4-FrameGen/overlay/overlay.hpp:2,
+                 from /workspace/ps4/PS4-FrameGen/overlay/settings/settings.cpp:1:
+/workspace/framegen-toolchains/mingw/usr/lib/gcc/x86_64-w64-mingw32/14-posix/include/c++/x86_64-w64-mingw32/bits/os_defines.h:45:9: note: this is the location of the previous definition
+   45 | #define NOMINMAX 1
+      |         ^~~~~~~~
+[ 36%] Building CXX object CMakeFiles/framegen.dir/overlay/menu/draw.cpp.obj
+[ 40%] Linking CXX static library libframegen.a
+[ 40%] Built target framegen
+[ 43%] Building CXX object CMakeFiles/framegen_cli.dir/windows-tests/main.cpp.obj
+[ 46%] Building CXX object CMakeFiles/framegen_bridge.dir/goldhen/plugin/bridge.cpp.obj
+[ 50%] Building CXX object CMakeFiles/framegen_ablation.dir/windows-tests/ablation.cpp.obj
+[ 53%] Building CXX object CMakeFiles/framegen_tests.dir/tests/tests.cpp.obj
+[ 56%] Linking CXX shared library libframegen_bridge.dll
+[ 56%] Built target framegen_bridge
+[ 60%] Building CXX object CMakeFiles/framegen_runtime_tests.dir/tests/runtime_tests.cpp.obj
+[ 63%] Linking CXX executable framegen_ablation.exe
+[ 63%] Built target framegen_ablation
+[ 66%] Building CXX object CMakeFiles/framegen_inspect.dir/windows-tests/inspect.cpp.obj
+[ 70%] Linking CXX executable framegen_cli.exe
+[ 70%] Built target framegen_cli
+[ 73%] Building CXX object CMakeFiles/framegen_benchmark_v03.dir/windows-tests/benchmark-v03.cpp.obj
+[ 76%] Linking CXX executable framegen_tests.exe
+[ 80%] Linking CXX executable framegen_inspect.exe
+[ 80%] Built target framegen_tests
+[ 83%] Building CXX object CMakeFiles/framegen_replay.dir/windows-tests/replay.cpp.obj
+[ 83%] Built target framegen_inspect
+[ 86%] Building CXX object CMakeFiles/framegen_bridge_tests.dir/tests/bridge_tests.cpp.obj
+[ 90%] Linking CXX executable framegen_replay.exe
+[ 93%] Linking CXX executable framegen_benchmark_v03.exe
+[ 96%] Linking CXX executable framegen_runtime_tests.exe
+[ 96%] Built target framegen_replay
+[ 96%] Built target framegen_benchmark_v03
+[ 96%] Built target framegen_runtime_tests
+[100%] Linking CXX executable framegen_bridge_tests.exe
+[100%] Built target framegen_bridge_tests

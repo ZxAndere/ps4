@@ -1,0 +1,23 @@
+PASS invalid allocation and bounds
+PASS PPM round trip preserves binary whitespace
+PASS malformed and truncated capture
+PASS area integrates pixels instead of relabeling
+PASS letterbox preserves aspect ratio
+PASS true 1080 and 720 output buffers
+PASS motion recovers image translation
+PASS intermediate agrees with withheld ground truth
+PASS distinct times and pixels for all multipliers
+PASS invalid configuration rejected
+PASS malformed motion rejected before buffer access
+PASS disable restores original image and resolution
+PASS scene cut suppresses generation
+PASS L3 R3 edge toggles once and controls edit
+PASS safe preferences and corrupt config recovery
+PASS presentation counts only explicit confirmations
+PASS overlay rasterizes actual pixels safely
+PASS optimized output agrees with reference at every temporal position
+PASS motion early exit preserves fields and costs
+PASS parallel output deterministic and warm image storage reused
+PASS 540p and 360p are real processing surfaces only
+PASS fast scaler preserves letterboxing and both filters
+22 passed, 0 failed, 0 skipped
