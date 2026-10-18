@@ -1,0 +1,61 @@
+name: PS4 Direct PKG native build
+on:
+  push:
+    branches: [ps4-direct-pkg-experimental]
+    paths:
+      - 'ps4-direct-pkg/**'
+      - '.github/workflows/ps4-direct-pkg.yml'
+  workflow_dispatch:
+jobs:
+  package:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install compiler
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y clang lld ca-certificates libicu70
+      - name: Obtain official OpenOrbis v0.5.4 toolchain
+        run: |
+          curl -fL --retry 3 "https://github.com/OpenOrbis/OpenOrbis-PS4-Toolchain/releases/download/v0.5.4/toolchain-llvm-18.tar.gz" -o /tmp/sdk.tar.gz
+          echo "3c7cd5bb593ca74fa1c13fd59f3938dc0fc07985167f7275063019e63abe4526  /tmp/sdk.tar.gz" | sha256sum -c -
+          mkdir -p /tmp/sdk
+          tar xzf /tmp/sdk.tar.gz -C /tmp/sdk
+          SDK=$(find /tmp/sdk -path '*/lib/crt1.o' -type f -print -quit | sed 's,/lib/crt1.o,,')
+          test -n "$SDK"
+          chmod -R u+x "$SDK/bin/linux"
+          echo "OO_PS4_TOOLCHAIN=$SDK" >> "$GITHUB_ENV"
+      - name: Prepare required package assets
+        working-directory: ps4-direct-pkg
+        run: |
+          mkdir -p sce_module sce_sys/about
+          for m in libc.prx libSceFios2.prx; do
+            path=$(find "$OO_PS4_TOOLCHAIN" -type f -name "$m" -print -quit)
+            test -n "$path"
+            cp "$path" "sce_module/$m"
+          done
+          right=$(find "$OO_PS4_TOOLCHAIN" -type f -name right.sprx -print -quit)
+          test -n "$right"
+          cp "$right" sce_sys/about/right.sprx
+          icon=$(find "$OO_PS4_TOOLCHAIN/samples" -type f -name icon0.png -print -quit)
+          test -n "$icon"
+          cp "$icon" sce_sys/icon0.png
+      - name: Compile and package PS4 executable
+        working-directory: ps4-direct-pkg
+        run: make
+      - name: Verify package header
+        working-directory: ps4-direct-pkg
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          p=Path('IV0000-BREW00974_00-PS4DIRECTDIAG070.pkg')
+          assert p.exists()
+          assert p.open('rb').read(4)==bytes.fromhex('7f434e54')
+          print(p, p.stat().st_size)
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: PS4-Direct-PKG-Native-Diagnostic
+          path: ps4-direct-pkg/*.pkg
+          if-no-files-found: error
