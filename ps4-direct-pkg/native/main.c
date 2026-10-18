@@ -15,7 +15,7 @@
 #include <orbis/libkernel.h>
 
 /*
- * PS4 Direct PKG v0.8 — safe, read-only connection test.
+ * PS4 Direct PKG v0.9 — safe, read-only connection test.
  * Uses system on-screen keyboard, and native sceHttp APIs.
  * This application does not download full packages or install them.
  */
@@ -81,26 +81,40 @@ static bool load_url_file(char *url, size_t cap)
 }
 
 /* Orbis keyboard uses UTF-16 code units on PS4. Keep URLs ASCII. */
-static bool url_keyboard(char *out, size_t cap)
+/* 0 = accepted, negatives describe the first failing IME stage. */
+static int url_keyboard(char *out, size_t cap, int *api_error, int *last_status)
 {
     static uint16_t ime_buffer[OSK_MAX + 1];
     static const uint16_t ime_title[] = {
         'I','n','t','r','o','d','u','c','e',' ','l','a',' ','U','R','L',0
     };
-    static const uint16_t ime_placeholder[] = {
-        'h','t','t','p','s',':','/','/',0
-    };
     OrbisImeDialogSetting param;
     OrbisDialogResult result;
+    OrbisUserServiceInitializeParams user_params;
     int32_t uid = -1;
-    int ret = sceUserServiceInitialize(NULL);
-    if (ret < 0)
-        return false;
-    if (sceUserServiceGetForegroundUser(&uid) < 0 || uid < 0)
-        if (sceUserServiceGetInitialUser(&uid) < 0 || uid < 0)
-            return false;
-    if (sceSysmoduleLoadModule(ORBIS_SYSMODULE_IME_DIALOG) < 0)
-        return false;
+    int ret = 0;
+    *api_error = 0;
+    *last_status = -1;
+
+    /* v0.9 incorrectly passed NULL to this API. */
+    memset(&user_params, 0, sizeof(user_params));
+    user_params.priority = ORBIS_KERNEL_PRIO_FIFO_LOWEST;
+    ret = sceUserServiceInitialize(&user_params);
+    /* This may return already-initialized, which is not fatal. */
+    ret = sceUserServiceGetForegroundUser(&uid);
+    if (ret < 0 || uid < 0) {
+        ret = sceUserServiceGetInitialUser(&uid);
+        if (ret < 0 || uid < 0) {
+            *api_error = ret;
+            return -1;
+        }
+    }
+
+    ret = sceSysmoduleLoadModule(ORBIS_SYSMODULE_IME_DIALOG);
+    if (ret < 0) {
+        *api_error = ret;
+        return -2;
+    }
 
     memset(ime_buffer, 0, sizeof(ime_buffer));
     memset(&param, 0, sizeof(param));
@@ -109,32 +123,64 @@ static bool url_keyboard(char *out, size_t cap)
     param.maxTextLength = OSK_MAX;
     param.inputTextBuffer = (wchar_t *)ime_buffer;
     param.title = (const wchar_t *)ime_title;
-    param.placeholder = (const wchar_t *)ime_placeholder;
-    param.enterLabel = ORBIS_BUTTON_LABEL_GO;
+    param.enterLabel = ORBIS_BUTTON_LABEL_DEFAULT;
     param.posx = 960;
     param.posy = 540;
     param.horizontalAlignment = ORBIS_H_CENTER;
     param.verticalAlignment = ORBIS_V_CENTER;
 
-    if (sceImeDialogInit(&param, NULL) < 0)
-        return false;
+    /* Leave enough time for the previous message dialog to terminate. */
+    sceKernelUsleep(180000);
+    ret = sceImeDialogInit(&param, NULL);
+    if (ret < 0) {
+        *api_error = ret;
+        return -3;
+    }
 
-    while (sceImeDialogGetStatus() == ORBIS_DIALOG_STATUS_RUNNING)
+    /* Account for the initial NONE state as well as RUNNING/STOPPED. */
+    int seen_running = 0;
+    int finished = 0;
+    for (int ticks = 0; ticks < 18000; ticks++) {
+        int state = (int)sceImeDialogGetStatus();
+        *last_status = state;
+        if (state == ORBIS_DIALOG_STATUS_RUNNING)
+            seen_running = 1;
+        if (state == ORBIS_DIALOG_STATUS_STOPPED) {
+            finished = 1;
+            break;
+        }
+        if (state == ORBIS_DIALOG_STATUS_NONE && ticks > 300 && !seen_running)
+            break; /* Not shown after 3 seconds */
         sceKernelUsleep(10000);
+    }
+    if (!finished) {
+        sceImeDialogAbort();
+        sceImeDialogTerm();
+        return -4;
+    }
+
     memset(&result, 0, sizeof(result));
-    int got_result = sceImeDialogGetResult(&result);
+    ret = sceImeDialogGetResult(&result);
     sceImeDialogTerm();
-    if (got_result < 0 || result.endstatus != ORBIS_DIALOG_OK)
-        return false;
+    if (ret < 0) {
+        *api_error = ret;
+        return -5;
+    }
+    if (result.endstatus != ORBIS_DIALOG_OK) {
+        *api_error = result.endstatus;
+        return -6;
+    }
 
     size_t i = 0;
     for (; i + 1 < cap && i < OSK_MAX && ime_buffer[i]; i++) {
         if (ime_buffer[i] < 33 || ime_buffer[i] > 126)
-            return false;
+            return -7; /* Only ASCII allowed in URL */
         out[i] = (char)ime_buffer[i];
     }
     out[i] = 0;
-    return valid_url(out);
+    if (!valid_url(out))
+        return -8;
+    return 0;
 }
 
 static void test_url(const char *url, char *message, size_t message_cap)
@@ -157,7 +203,7 @@ static void test_url(const char *url, char *message, size_t message_cap)
     http = sceHttpInit(net, ssl, 1024 * 1024);
     if (http < 0) { error = -5; goto done; }
 
-    tpl = sceHttpCreateTemplate(http, "PS4Direct/0.8",
+    tpl = sceHttpCreateTemplate(http, "PS4Direct/0.9",
                                 ORBIS_HTTP_VERSION_1_1, 1);
     if (tpl < 0) { error = -6; goto done; }
     /* Keep TLS certificate verification enabled. */
@@ -188,7 +234,7 @@ static void test_url(const char *url, char *message, size_t message_cap)
 
 done:
     snprintf(message, message_cap,
-        "PS4 Direct PKG v0.8 - resultado\n\n"
+        "PS4 Direct PKG v0.9 - resultado\n\n"
         "HTTP: %d\n"
         "Bytes comprobados: %lu / 1024\n"
         "Codigo diagnostico: %d\n"
@@ -213,17 +259,27 @@ int main(void)
 
     bool used_file = load_url_file(url, sizeof(url));
     if (!used_file) {
-        show_dialog("PS4 Direct PKG v0.8\n\n"
+        show_dialog("PS4 Direct PKG v0.9\n\n"
                     "La PS4 funciona sin Windows.\n"
                     "A continuacion se abrira el teclado.\n\n"
                     "Introduce la URL directa de un PKG homebrew autorizado.\n"
                     "Enlaces largos: /data/ps4direct_url.txt\n\n"
                     "Esta version solo diagnostica HTTP.");
-        if (!url_keyboard(url, sizeof(url))) {
-            show_dialog("No se recibio una URL valida.\n\n"
-                        "Comprueba que empieza por https:// o http://.\n"
-                        "Si el teclado no funciona, usa el archivo\n"
-                        "/data/ps4direct_url.txt");
+        int api_error = 0, ime_status = -1;
+        int osk_result = url_keyboard(url, sizeof(url), &api_error, &ime_status);
+        if (osk_result != 0) {
+            snprintf(message, sizeof(message),
+                     "PS4 Direct PKG v0.9\n\n"
+                     "El teclado no devolvio una URL valida.\n\n"
+                     "Etapa: %d\n"
+                     "Error API: 0x%08X\n"
+                     "Estado IME: %d\n\n"
+                     "-1 usuario / -2 modulo / -3 inicio\n"
+                     "-4 espera / -5 resultado / -6 cancelado\n"
+                     "-7 caracteres / -8 URL\n\n"
+                     "Alternativa: /data/ps4direct_url.txt",
+                     osk_result, (unsigned int)api_error, ime_status);
+            show_dialog(message);
             return 0;
         }
     }

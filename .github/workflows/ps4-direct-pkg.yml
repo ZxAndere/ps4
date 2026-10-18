@@ -49,13 +49,13 @@ jobs:
         run: |
           python3 - <<'PY'
           from pathlib import Path
-          p=Path('IV0000-BREW00975_00-PS4DIRECTDIAG080.pkg')
+          p=Path('IV0000-BREW00976_00-PS4DIRECTDIAG090.pkg')
           assert p.exists()
           assert p.open('rb').read(4)==bytes.fromhex('7f434e54')
           print(p, p.stat().st_size)
           PY
       - uses: actions/upload-artifact@v4
         with:
-          name: PS4-Direct-PKG-Native-Diagnostic-v0.8
+          name: PS4-Direct-PKG-Native-Diagnostic-v0.9
           path: ps4-direct-pkg/*.pkg
           if-no-files-found: error

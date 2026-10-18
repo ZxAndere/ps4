@@ -1,7 +1,7 @@
-TITLE := PS4 Direct PKG Diagnostic 0.8
-VERSION := 0.80
-TITLE_ID := BREW00975
-CONTENT_ID := IV0000-BREW00975_00-PS4DIRECTDIAG080
+TITLE := PS4 Direct PKG Diagnostic 0.9
+VERSION := 0.90
+TITLE_ID := BREW00976
+CONTENT_ID := IV0000-BREW00976_00-PS4DIRECTDIAG090
 TOOLCHAIN := $(OO_PS4_TOOLCHAIN)
 LIBS := -lc -lkernel -lSceNet -lSceSsl -lSceHttp -lSceSysmodule -lSceCommonDialog -lSceMsgDialog -lSceImeDialog -lSceUserService
 CFLAGS := --target=x86_64-pc-freebsd12-elf -fPIC -funwind-tables -c -isysroot $(TOOLCHAIN) -isystem $(TOOLCHAIN)/include
