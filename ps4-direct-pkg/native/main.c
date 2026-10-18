@@ -115,8 +115,7 @@ static bool progress_update(uint64_t written, uint64_t total)
 
 static void progress_finish(void)
 {
-    if (sceMsgDialogGetStatus() == ORBIS_COMMON_DIALOG_STATUS_RUNNING)
-        sceMsgDialogClose();
+    sceMsgDialogClose();
     sceMsgDialogTerminate();
 }
 
@@ -400,12 +399,14 @@ static void download_pkg(const char *url)
         (unsigned long long)(local_bytes/(1024*1024)));
     if(!confirm_message(prompt)) {cancelled=true;goto end;}
 
+    /* Never begin a large transfer if progress/cancel UI could not open. */
+    bar=progress_start();
+    if(!bar) {error=25;goto end;}
     if(!resumed && !save_state(state,source_hash,total)) {
         error=16;goto end;
     }
     file=fopen(part,resumed?"ab":"wb");
     if(!file) {error=17;goto end;}
-    bar=progress_start();
     uint64_t downloaded=local_bytes;
     unsigned int update_counter=0;
     while(downloaded < total) {
