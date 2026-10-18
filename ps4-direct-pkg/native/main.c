@@ -279,7 +279,7 @@ static bool header_value(int request, const char *key, char *dst, size_t cap)
     return false;
 }
 
-/* Header must be "bytes FIRST-LAST/TOTAL", never "bytes */TOTAL". */
+/* Header must contain a concrete byte start, end and total size. */
 static bool content_range(int request, uint64_t *begin,
                           uint64_t *end, uint64_t *total)
 {
