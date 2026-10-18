@@ -2,289 +2,495 @@
 #include <stddef.h>
 #include <stdint.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
+#include <ctype.h>
+#include <sys/types.h>
 
 #include <orbis/CommonDialog.h>
 #include <orbis/Http.h>
-#include <orbis/ImeDialog.h>
 #include <orbis/MsgDialog.h>
 #include <orbis/Net.h>
 #include <orbis/Ssl.h>
 #include <orbis/Sysmodule.h>
-#include <orbis/UserService.h>
 #include <orbis/libkernel.h>
 
 /*
- * PS4 Direct PKG v0.9 — safe, read-only connection test.
- * Uses system on-screen keyboard, and native sceHttp APIs.
- * This application does not download full packages or install them.
+ * PS4 Direct PKG v1.0 - experimental download-only homebrew.
+ * No system package registration, no NovaPS, no PC proxy.
+ *
+ * The URL is read from /data/ps4direct_url.txt.
+ * Existing partial downloads are resumed only when the URL hash
+ * and HTTP Content-Range indicate the same remote file.
  */
 #define URL_FILE "/data/ps4direct_url.txt"
-#define URL_MAX 2048
-#define OSK_MAX 510
-#define PROBE_BYTES 1024
+#define URL_CAP 2048
+#define HEADER_CAP 256
+#define CHUNK_SIZE (64u * 1024u)
+#define MAX_DOWNLOAD_BYTES (16ULL * 1024ULL * 1024ULL * 1024ULL)
+#define MIN_SPACE_WARNING "Comprueba antes el espacio libre de /data."
+static uint8_t chunk[CHUNK_SIZE];
 
-static void show_dialog(const char *message)
+static void dialog_init(OrbisMsgDialogParam *p)
 {
-    OrbisMsgDialogParam p;
-    OrbisMsgDialogUserMessageParam u;
-    memset(&p, 0, sizeof(p));
-    memset(&u, 0, sizeof(u));
-    p.baseParam.size = sizeof(p.baseParam);
-    p.baseParam.magic = (uint32_t)(ORBIS_COMMON_DIALOG_MAGIC_NUMBER +
-                                   (uint64_t)&p.baseParam);
-    p.size = sizeof(p);
-    p.mode = ORBIS_MSG_DIALOG_MODE_USER_MSG;
-    u.msg = message;
-    u.buttonType = ORBIS_MSG_DIALOG_BUTTON_TYPE_OK;
-    p.userMsgParam = &u;
-    if (sceMsgDialogInitialize() < 0)
-        return;
-    if (sceMsgDialogOpen(&p) >= 0) {
-        while (sceMsgDialogUpdateStatus() != ORBIS_COMMON_DIALOG_STATUS_FINISHED)
-            sceKernelUsleep(10000);
-        sceMsgDialogClose();
+    memset(p, 0, sizeof(*p));
+    p->baseParam.size = sizeof(p->baseParam);
+    p->baseParam.magic =
+        (uint32_t)(ORBIS_COMMON_DIALOG_MAGIC_NUMBER + (uint64_t)&p->baseParam);
+    p->size = sizeof(*p);
+}
+
+static void dialog_wait_finish(void)
+{
+    while (sceMsgDialogUpdateStatus() != ORBIS_COMMON_DIALOG_STATUS_FINISHED)
+        sceKernelUsleep(16000);
+    sceMsgDialogClose();
+    sceMsgDialogTerminate();
+}
+
+static void show_message(const char *msg)
+{
+    OrbisMsgDialogParam param;
+    OrbisMsgDialogUserMessageParam user;
+    memset(&user, 0, sizeof(user));
+    dialog_init(&param);
+    user.msg = msg;
+    user.buttonType = ORBIS_MSG_DIALOG_BUTTON_TYPE_OK;
+    param.mode = ORBIS_MSG_DIALOG_MODE_USER_MSG;
+    param.userMsgParam = &user;
+    if (sceMsgDialogInitialize() < 0) return;
+    if (sceMsgDialogOpen(&param) >= 0) dialog_wait_finish();
+    else sceMsgDialogTerminate();
+}
+
+/* Explicit user confirmation before downloading large files. */
+static bool confirm_message(const char *msg)
+{
+    OrbisMsgDialogParam param;
+    OrbisMsgDialogUserMessageParam user;
+    OrbisMsgDialogResult result;
+    memset(&user, 0, sizeof(user));
+    memset(&result, 0, sizeof(result));
+    dialog_init(&param);
+    user.msg = msg;
+    user.buttonType = ORBIS_MSG_DIALOG_BUTTON_TYPE_YESNO_FOCUS_NO;
+    param.mode = ORBIS_MSG_DIALOG_MODE_USER_MSG;
+    param.userMsgParam = &user;
+    if (sceMsgDialogInitialize() < 0) return false;
+    if (sceMsgDialogOpen(&param) < 0) {
+        sceMsgDialogTerminate();
+        return false;
     }
+    while (sceMsgDialogUpdateStatus() != ORBIS_COMMON_DIALOG_STATUS_FINISHED)
+        sceKernelUsleep(16000);
+    sceMsgDialogClose();
+    int ok = sceMsgDialogGetResult(&result);
+    sceMsgDialogTerminate();
+    return ok >= 0 && result.buttonId == ORBIS_MSG_DIALOG_BUTTON_ID_YES;
+}
+
+static bool progress_start(void)
+{
+    OrbisMsgDialogParam param;
+    OrbisMsgDialogProgressBarParam bar;
+    memset(&bar, 0, sizeof(bar));
+    dialog_init(&param);
+    bar.barType = ORBIS_MSG_DIALOG_PROGRESSBAR_TYPE_PERCENTAGE_CANCEL;
+    bar.msg = "Descargando en la PS4. Puedes cancelar.";
+    param.mode = ORBIS_MSG_DIALOG_MODE_PROGRESS_BAR;
+    param.progBarParam = &bar;
+    if (sceMsgDialogInitialize() < 0) return false;
+    if (sceMsgDialogOpen(&param) >= 0) return true;
+    sceMsgDialogTerminate();
+    return false;
+}
+
+static bool progress_update(uint64_t written, uint64_t total)
+{
+    uint32_t percent = (uint32_t)(100ULL * written / total);
+    if (percent > 100) percent = 100;
+    sceMsgDialogProgressBarSetValue(0, percent);
+    return sceMsgDialogUpdateStatus() == ORBIS_COMMON_DIALOG_STATUS_FINISHED;
+}
+
+static void progress_finish(void)
+{
+    if (sceMsgDialogGetStatus() == ORBIS_COMMON_DIALOG_STATUS_RUNNING)
+        sceMsgDialogClose();
     sceMsgDialogTerminate();
 }
 
 static bool valid_url(const char *url)
 {
     size_t n = strlen(url);
-    if (n < 10 || n >= URL_MAX)
+    if (n < 12 || n >= URL_CAP ||
+        (strncmp(url,"https://",8) && strncmp(url,"http://",7)))
         return false;
-    if (strncmp(url, "https://", 8) && strncmp(url, "http://", 7))
-        return false;
-    /* Reject whitespace/control bytes; URLs must be percent-encoded. */
-    for (const unsigned char *p = (const unsigned char *)url; *p; ++p)
-        if (*p <= 32 || *p >= 127)
-            return false;
+    for (size_t i = 0; i < n; i++) {
+        unsigned char c = (unsigned char)url[i];
+        if (c <= 32 || c >= 127) return false;
+    }
     return true;
 }
 
-/* Preferred for very long signed URLs transferred by FTP once. */
-static bool load_url_file(char *url, size_t cap)
+static bool load_url(char *url, size_t cap)
 {
     FILE *f = fopen(URL_FILE, "rb");
-    if (!f)
-        return false;
-    size_t n = fread(url, 1, cap - 1, f);
-    int more = fgetc(f);
+    if (!f) return false;
+    size_t n = fread(url, 1, cap-1, f);
+    int extra = fgetc(f);
     fclose(f);
-    if (more != EOF || n == cap - 1)
-        return false;
-    url[n] = 0;
-    char *nl = strpbrk(url, "\r\n");
-    if (nl)
-        *nl = 0;
+    if (extra != EOF || n == cap-1) return false;
+    url[n] = '\0';
+    char *end = strpbrk(url, "\r\n");
+    if (end) *end = '\0';
     return valid_url(url);
 }
 
-/* Orbis keyboard uses UTF-16 code units on PS4. Keep URLs ASCII. */
-/* 0 = accepted, negatives describe the first failing IME stage. */
-static int url_keyboard(char *out, size_t cap, int *api_error, int *last_status)
+static uint64_t hash_url(const char *s)
 {
-    static uint16_t ime_buffer[OSK_MAX + 1];
-    static const uint16_t ime_title[] = {
-        'I','n','t','r','o','d','u','c','e',' ','l','a',' ','U','R','L',0
-    };
-    OrbisImeDialogSetting param;
-    OrbisDialogResult result;
-    OrbisUserServiceInitializeParams user_params;
-    int32_t uid = -1;
-    int ret = 0;
-    *api_error = 0;
-    *last_status = -1;
-
-    /* v0.9 incorrectly passed NULL to this API. */
-    memset(&user_params, 0, sizeof(user_params));
-    user_params.priority = ORBIS_KERNEL_PRIO_FIFO_LOWEST;
-    ret = sceUserServiceInitialize(&user_params);
-    /* This may return already-initialized, which is not fatal. */
-    ret = sceUserServiceGetForegroundUser(&uid);
-    if (ret < 0 || uid < 0) {
-        ret = sceUserServiceGetInitialUser(&uid);
-        if (ret < 0 || uid < 0) {
-            *api_error = ret;
-            return -1;
-        }
+    uint64_t h = 14695981039346656037ULL;
+    for (; *s; s++) {
+        h ^= (uint8_t)*s;
+        h *= 1099511628211ULL;
     }
-
-    ret = sceSysmoduleLoadModule(ORBIS_SYSMODULE_IME_DIALOG);
-    if (ret < 0) {
-        *api_error = ret;
-        return -2;
-    }
-
-    memset(ime_buffer, 0, sizeof(ime_buffer));
-    memset(&param, 0, sizeof(param));
-    param.userId = (uint32_t)uid;
-    param.type = ORBIS_TYPE_TYPE_URL;
-    param.maxTextLength = OSK_MAX;
-    param.inputTextBuffer = (wchar_t *)ime_buffer;
-    param.title = (const wchar_t *)ime_title;
-    param.enterLabel = ORBIS_BUTTON_LABEL_DEFAULT;
-    param.posx = 960;
-    param.posy = 540;
-    param.horizontalAlignment = ORBIS_H_CENTER;
-    param.verticalAlignment = ORBIS_V_CENTER;
-
-    /* Leave enough time for the previous message dialog to terminate. */
-    sceKernelUsleep(180000);
-    ret = sceImeDialogInit(&param, NULL);
-    if (ret < 0) {
-        *api_error = ret;
-        return -3;
-    }
-
-    /* Account for the initial NONE state as well as RUNNING/STOPPED. */
-    int seen_running = 0;
-    int finished = 0;
-    for (int ticks = 0; ticks < 18000; ticks++) {
-        int state = (int)sceImeDialogGetStatus();
-        *last_status = state;
-        if (state == ORBIS_DIALOG_STATUS_RUNNING)
-            seen_running = 1;
-        if (state == ORBIS_DIALOG_STATUS_STOPPED) {
-            finished = 1;
-            break;
-        }
-        if (state == ORBIS_DIALOG_STATUS_NONE && ticks > 300 && !seen_running)
-            break; /* Not shown after 3 seconds */
-        sceKernelUsleep(10000);
-    }
-    if (!finished) {
-        sceImeDialogAbort();
-        sceImeDialogTerm();
-        return -4;
-    }
-
-    memset(&result, 0, sizeof(result));
-    ret = sceImeDialogGetResult(&result);
-    sceImeDialogTerm();
-    if (ret < 0) {
-        *api_error = ret;
-        return -5;
-    }
-    if (result.endstatus != ORBIS_DIALOG_OK) {
-        *api_error = result.endstatus;
-        return -6;
-    }
-
-    size_t i = 0;
-    for (; i + 1 < cap && i < OSK_MAX && ime_buffer[i]; i++) {
-        if (ime_buffer[i] < 33 || ime_buffer[i] > 126)
-            return -7; /* Only ASCII allowed in URL */
-        out[i] = (char)ime_buffer[i];
-    }
-    out[i] = 0;
-    if (!valid_url(out))
-        return -8;
-    return 0;
+    return h;
 }
 
-static void test_url(const char *url, char *message, size_t message_cap)
+static bool file_exists(const char *path)
 {
-    int net = -1, ssl = -1, http = -1, tpl = -1, conn = -1, req = -1;
-    int status = 0, error = -1;
-    uint8_t first[PROBE_BYTES] = {0};
-    size_t got = 0;
+    FILE *f = fopen(path, "rb");
+    if (!f) return false;
+    fclose(f);
+    return true;
+}
 
-    if (sceSysmoduleLoadModuleInternal(ORBIS_SYSMODULE_INTERNAL_NET) < 0 ||
-        sceSysmoduleLoadModuleInternal(ORBIS_SYSMODULE_INTERNAL_SSL) < 0 ||
-        sceSysmoduleLoadModuleInternal(ORBIS_SYSMODULE_INTERNAL_HTTP) < 0) {
-        error = -1; goto done;
+static bool file_size(const char *path, uint64_t *len)
+{
+    FILE *f = fopen(path, "rb");
+    if (!f) return false;
+    if (fseeko(f, 0, SEEK_END) != 0) { fclose(f); return false; }
+    off_t offset = ftello(f);
+    fclose(f);
+    if (offset < 0) return false;
+    *len = (uint64_t)offset;
+    return true;
+}
+
+/* File names are derived from the URL's path, not user-supplied directories. */
+static void create_paths(const char *url, char *part, char *final, char *meta)
+{
+    const char *p = strchr(url, '/');
+    p = p ? strchr(p+2, '/') : NULL; /* First path slash after https://hostname */
+    const char *name = p ? strrchr(p, '/') : NULL;
+    name = name ? name+1 : "download";
+    char base[48];
+    size_t n=0;
+    while (*name && *name!='?' && *name!='#' && n<sizeof(base)-1) {
+        unsigned char c = (unsigned char)*name++;
+        if (isalnum(c) || c=='-' || c=='_' || c=='.')
+            base[n++] = (char)c;
+        else
+            base[n++] = '_';
     }
-    if (sceNetInit() < 0) { error = -2; goto done; }
-    net = sceNetPoolCreate("PS4Direct", 128 * 1024, 0);
-    if (net < 0) { error = -3; goto done; }
-    ssl = sceSslInit(1024 * 1024);
-    if (ssl < 0) { error = -4; goto done; }
-    http = sceHttpInit(net, ssl, 1024 * 1024);
-    if (http < 0) { error = -5; goto done; }
+    base[n]='\0';
+    if (n>4 && !strcmp(base+n-4,".pkg")) base[n-4]='\0';
+    if (!base[0] || base[0]=='.') strcpy(base,"package");
+    uint64_t h = hash_url(url); /* Distinct URLs never overwrite one another. */
+    char stem[128];
+    snprintf(stem, sizeof(stem), "/data/ps4direct_%.40s_%08llx",
+             base, (unsigned long long)(h & 0xffffffffULL));
+    snprintf(part,256,"%s.part",stem);
+    snprintf(final,256,"%s.pkg",stem);
+    snprintf(meta,256,"%s.state",stem);
+}
 
-    tpl = sceHttpCreateTemplate(http, "PS4Direct/0.9",
-                                ORBIS_HTTP_VERSION_1_1, 1);
-    if (tpl < 0) { error = -6; goto done; }
-    /* Keep TLS certificate verification enabled. */
-    conn = sceHttpCreateConnectionWithURL(tpl, url, true);
-    if (conn < 0) { error = -7; goto done; }
-    req = sceHttpCreateRequestWithURL(conn, ORBIS_METHOD_GET, url, 0);
-    if (req < 0) { error = -8; goto done; }
+static bool save_state(const char *path, uint64_t source_hash, uint64_t total)
+{
+    FILE *f = fopen(path, "wb");
+    if (!f) return false;
+    int ret = fprintf(f,"PS4DIRECT1\n%016llx\n%llu\n",
+        (unsigned long long)source_hash, (unsigned long long)total);
+    bool ok = ret > 0 && fflush(f)==0;
+    if (fclose(f) != 0) ok = false;
+    return ok;
+}
 
-    if (sceHttpAddRequestHeader(req, "Range", "bytes=0-1023", 0) < 0) {
-        error = -9; goto done;
+static bool load_state(const char *path, uint64_t *source_hash, uint64_t *total)
+{
+    FILE *f = fopen(path, "rb");
+    if (!f) return false;
+    char magic[20] = {0};
+    unsigned long long h=0, t=0;
+    bool ok = fgets(magic,sizeof(magic),f) &&
+              !strcmp(magic,"PS4DIRECT1\n") &&
+              fscanf(f,"%llx\n%llu",&h,&t)==2;
+    fclose(f);
+    if (ok) { *source_hash=(uint64_t)h; *total=(uint64_t)t; }
+    return ok;
+}
+
+static bool pkg_header_valid(const uint8_t *x)
+{
+    return x[0]==0x7f && x[1]=='C' && x[2]=='N' && x[3]=='T';
+}
+
+static bool check_existing_pkg_header(const char *path)
+{
+    FILE *f=fopen(path,"rb");
+    if(!f) return false;
+    uint8_t b[4] = {0};
+    bool ok = fread(b,1,4,f)==4 && pkg_header_valid(b);
+    fclose(f);
+    return ok;
+}
+
+static bool header_value(int request, const char *key, char *dst, size_t cap)
+{
+    char *headers=NULL;
+    size_t len=0;
+    if (sceHttpGetAllResponseHeaders(request,&headers,&len)<0 || !headers)
+        return false;
+    size_t needle_len=strlen(key);
+    size_t i=0;
+    while(i<len) {
+        size_t begin=i;
+        while(i<len && headers[i]!='\r' && headers[i]!='\n') i++;
+        size_t end=i;
+        while(i<len && (headers[i]=='\r' || headers[i]=='\n')) i++;
+        if(end-begin < needle_len+1 || headers[begin+needle_len]!=':')
+            continue;
+        bool match=true;
+        for(size_t j=0;j<needle_len;j++) {
+            unsigned char a=(unsigned char)headers[begin+j];
+            unsigned char b=(unsigned char)key[j];
+            if(tolower(a)!=tolower(b)) {match=false;break;}
+        }
+        if(!match) continue;
+        size_t start=begin+needle_len+1;
+        while(start<end && (headers[start]==' ' || headers[start]=='\t')) start++;
+        while(end>start && (headers[end-1]==' ' || headers[end-1]=='\t')) end--;
+        size_t n=end-start;
+        if(n==0 || n>=cap) return false;
+        memcpy(dst,headers+start,n);
+        dst[n]=0;
+        return true;
     }
-    sceHttpSetConnectTimeOut(req, 15000000);
-    sceHttpSetSendTimeOut(req, 15000000);
+    return false;
+}
 
-    if (sceHttpSendRequest(req, NULL, 0) < 0) { error = -10; goto done; }
-    if (sceHttpGetStatusCode(req, &status) < 0) { error = -11; goto done; }
-    if (status != 206) { error = -12; goto done; }
-    while (got < sizeof(first)) {
-        int r = sceHttpReadData(req, first + got, (uint32_t)(sizeof(first) - got));
-        if (r < 0) { error = -13; goto done; }
-        if (r == 0)
-            break;
-        got += (size_t)r;
+/* Header must be "bytes FIRST-LAST/TOTAL", never "bytes */TOTAL". */
+static bool content_range(int request, uint64_t *begin,
+                          uint64_t *end, uint64_t *total)
+{
+    char value[HEADER_CAP];
+    unsigned long long b=0,e=0,t=0;
+    char trailing='x';
+    if(!header_value(request,"Content-Range",value,sizeof(value))) return false;
+    int n=sscanf(value,"bytes %llu-%llu/%llu%c",&b,&e,&t,&trailing);
+    if(n!=3 || t==0 || b>e || e>=t) return false;
+    *begin=(uint64_t)b;
+    *end=(uint64_t)e;
+    *total=(uint64_t)t;
+    return true;
+}
+
+static void cleanup_http(int request, int conn, int tpl,
+                         int http, int ssl, int net)
+{
+    if(request>=0) sceHttpDeleteRequest(request);
+    if(conn>=0) sceHttpDeleteConnection(conn);
+    if(tpl>=0) sceHttpDeleteTemplate(tpl);
+    if(http>=0) sceHttpTerm(http);
+    if(ssl>=0) sceSslTerm(ssl);
+    if(net>=0) sceNetPoolDestroy(net);
+}
+
+static void download_pkg(const char *url)
+{
+    char part[256],final[256],state[256],range[100],prompt[480],summary[640];
+    int net=-1,ssl=-1,http=-1,tpl=-1,conn=-1,req=-1;
+    int http_code=0,error=0,last_http_error=0;
+    uint64_t local_bytes=0, total=0, saved_hash=0, saved_total=0, received=0;
+    uint64_t source_hash=hash_url(url), b=0,e=0,t=0;
+    int content_length_type=0;
+    size_t content_length=0;
+    bool resumed=false, bar=false, cancelled=false, complete=false;
+    FILE *file=NULL;
+
+    create_paths(url,part,final,state);
+    if(file_exists(final)) {
+        show_message("Ya existe un PKG completado con esta URL.\n"
+                     "No lo sobrescribire.\n\n"
+                     "Gestiona el PKG guardado en /data/.");
+        return;
     }
-    error = (got == PROBE_BYTES &&
-             first[0] == 0x7f && first[1] == 'C' &&
-             first[2] == 'N' && first[3] == 'T') ? 0 : -14;
+    resumed=file_size(part,&local_bytes);
+    if(resumed) {
+        if(local_bytes<4 || !check_existing_pkg_header(part) ||
+           !load_state(state,&saved_hash,&saved_total) ||
+           saved_hash!=source_hash || local_bytes>=saved_total) {
+            show_message("Hay una descarga parcial que no es segura "
+                         "para reanudar.\nNo se ha modificado.\n"
+                         "Revisa sus archivos .part y .state en /data/.");
+            return;
+        }
+    }
 
-done:
-    snprintf(message, message_cap,
-        "PS4 Direct PKG v0.9 - resultado\n\n"
-        "HTTP: %d\n"
-        "Bytes comprobados: %lu / 1024\n"
-        "Codigo diagnostico: %d\n"
-        "Cabecera PKG: %s\n\n"
-        "No descarga el archivo completo ni lo instala.",
-        status, (unsigned long)got, error,
-        error == 0 ? "RECONOCIDA" : "NO confirmada");
-    if (req >= 0) sceHttpDeleteRequest(req);
-    if (conn >= 0) sceHttpDeleteConnection(conn);
-    if (tpl >= 0) sceHttpDeleteTemplate(tpl);
-    if (http >= 0) sceHttpTerm(http);
-    if (ssl >= 0) sceSslTerm(ssl);
-    if (net >= 0) sceNetPoolDestroy(net);
+    if(sceSysmoduleLoadModuleInternal(ORBIS_SYSMODULE_INTERNAL_NET)<0 ||
+       sceSysmoduleLoadModuleInternal(ORBIS_SYSMODULE_INTERNAL_SSL)<0 ||
+       sceSysmoduleLoadModuleInternal(ORBIS_SYSMODULE_INTERNAL_HTTP)<0) {
+        error=1; goto end;
+    }
+    if(sceNetInit()<0) {error=2;goto end;}
+    net=sceNetPoolCreate("PS4DirectDL",128*1024,0);
+    if(net<0) {error=3;goto end;}
+    ssl=sceSslInit(1024*1024);
+    if(ssl<0) {error=4;goto end;}
+    http=sceHttpInit(net,ssl,1024*1024);
+    if(http<0) {error=5;goto end;}
+    tpl=sceHttpCreateTemplate(http,"PS4Direct/1.0",ORBIS_HTTP_VERSION_1_1,1);
+    if(tpl<0) {error=6;goto end;}
+    conn=sceHttpCreateConnectionWithURL(tpl,url,true);
+    if(conn<0) {error=7;goto end;}
+    req=sceHttpCreateRequestWithURL(conn,ORBIS_METHOD_GET,url,0);
+    if(req<0) {error=8;goto end;}
+    snprintf(range,sizeof(range),"bytes=%llu-",(unsigned long long)local_bytes);
+    if(sceHttpAddRequestHeader(req,"Range",range,0)<0 ||
+       sceHttpAddRequestHeader(req,"Accept-Encoding","identity",0)<0) {
+        error=9;goto end;
+    }
+    sceHttpSetConnectTimeOut(req,15000000);
+    sceHttpSetSendTimeOut(req,15000000);
+    if(sceHttpSendRequest(req,NULL,0)<0) {
+        sceHttpGetLastErrno(req,&last_http_error);
+        error=10;goto end;
+    }
+    if(sceHttpGetStatusCode(req,&http_code)<0) {error=11;goto end;}
+
+    if(http_code==206) {
+        if(!content_range(req,&b,&e,&t) || b!=local_bytes) {
+            error=12;goto end;
+        }
+        total=t;
+    } else if(http_code==200 && local_bytes==0) {
+        if(sceHttpGetResponseContentLength(req,&content_length_type,&content_length)<0 ||
+           content_length_type!=ORBIS_HTTP_CONTENTLEN_EXIST) {
+            error=13;goto end;
+        }
+        total=(uint64_t)content_length;
+    } else {
+        /* Never append HTTP 200, redirection pages or error bodies to .part. */
+        error=14;goto end;
+    }
+    if(total<4 || total>MAX_DOWNLOAD_BYTES || local_bytes>=total ||
+       (resumed && saved_total!=total)) {
+        error=15;goto end;
+    }
+
+    snprintf(prompt,sizeof(prompt),
+        "%s paquete homebrew autorizado?\n\n"
+        "Tamano total: %llu MiB\n"
+        "Ya guardado: %llu MiB\n"
+        "Destino: /data/ps4direct_...\n\n"
+        "Necesitas suficiente espacio libre.\n"
+        "No lo instalara automaticamente.",
+        resumed?"Reanudar":"Descargar",
+        (unsigned long long)((total+1024*1024-1)/(1024*1024)),
+        (unsigned long long)(local_bytes/(1024*1024)));
+    if(!confirm_message(prompt)) {cancelled=true;goto end;}
+
+    if(!resumed && !save_state(state,source_hash,total)) {
+        error=16;goto end;
+    }
+    file=fopen(part,resumed?"ab":"wb");
+    if(!file) {error=17;goto end;}
+    bar=progress_start();
+    uint64_t downloaded=local_bytes;
+    unsigned int update_counter=0;
+    while(downloaded < total) {
+        uint32_t ask=CHUNK_SIZE;
+        if(total-downloaded<CHUNK_SIZE) ask=(uint32_t)(total-downloaded);
+        int n=sceHttpReadData(req,chunk,ask);
+        if(n<0) {error=18;break;}
+        if(n==0) {error=19;break;}
+        if(!resumed && downloaded<4) {
+            if((uint64_t)n < 4 || !pkg_header_valid(chunk)) {
+                error=20;break;
+            }
+        }
+        if(fwrite(chunk,1,(size_t)n,file)!=(size_t)n) {error=21;break;}
+        downloaded+=(uint64_t)n;
+        received+=(uint64_t)n;
+        update_counter++;
+        if(bar && ((update_counter%8)==0 || downloaded==total)) {
+            if(progress_update(downloaded,total)) {
+                cancelled=true;
+                break;
+            }
+        }
+    }
+    if(fflush(file)!=0 && error==0) error=22;
+    if(fclose(file)!=0 && error==0) error=23;
+    file=NULL;
+    if(bar) progress_finish();
+    bar=false;
+
+    if(!error && !cancelled && downloaded==total) {
+        if(rename(part,final)!=0) error=24;
+        else complete=true;
+    }
+
+end:
+    if(file) {
+        fflush(file);
+        fclose(file);
+    }
+    if(bar) progress_finish();
+    cleanup_http(req,conn,tpl,http,ssl,net);
+    if(complete) {
+        snprintf(summary,sizeof(summary),
+            "Descarga completada en la PS4!\n\n"
+            "Total: %llu MiB\n"
+            "Archivo: %s\n\n"
+            "Es un PKG descargado, NO instalado.\n"
+            "El sistema de instalacion aun esta pendiente.",
+            (unsigned long long)((total+1024*1024-1)/(1024*1024)),
+            final);
+    } else if(cancelled) {
+        snprintf(summary,sizeof(summary),
+            "Operacion cancelada.\n\n"
+            "Archivo parcial conservado para reanudar,\n"
+            "si se habian recibido datos.\n\n"
+            "No se ha instalado nada.");
+    } else {
+        snprintf(summary,sizeof(summary),
+            "Descarga no completada.\n\n"
+            "Etapa error: %d\nHTTP: %d\n"
+            "Error red: 0x%08X\n"
+            "Recibido en esta sesion: %llu KiB\n\n"
+            "El archivo parcial se conserva.\n"
+            "No se ha instalado nada.",
+            error,http_code,(unsigned int)last_http_error,
+            (unsigned long long)(received/1024));
+    }
+    show_message(summary);
 }
 
 int main(void)
 {
-    char url[URL_MAX] = {0}, message[512];
-    if (sceSysmoduleLoadModule(ORBIS_SYSMODULE_MESSAGE_DIALOG) < 0 ||
-        sceCommonDialogInitialize() < 0)
-        return 1;
-
-    bool used_file = load_url_file(url, sizeof(url));
-    if (!used_file) {
-        show_dialog("PS4 Direct PKG v0.9\n\n"
-                    "La PS4 funciona sin Windows.\n"
-                    "A continuacion se abrira el teclado.\n\n"
-                    "Introduce la URL directa de un PKG homebrew autorizado.\n"
-                    "Enlaces largos: /data/ps4direct_url.txt\n\n"
-                    "Esta version solo diagnostica HTTP.");
-        int api_error = 0, ime_status = -1;
-        int osk_result = url_keyboard(url, sizeof(url), &api_error, &ime_status);
-        if (osk_result != 0) {
-            snprintf(message, sizeof(message),
-                     "PS4 Direct PKG v0.9\n\n"
-                     "El teclado no devolvio una URL valida.\n\n"
-                     "Etapa: %d\n"
-                     "Error API: 0x%08X\n"
-                     "Estado IME: %d\n\n"
-                     "-1 usuario / -2 modulo / -3 inicio\n"
-                     "-4 espera / -5 resultado / -6 cancelado\n"
-                     "-7 caracteres / -8 URL\n\n"
-                     "Alternativa: /data/ps4direct_url.txt",
-                     osk_result, (unsigned int)api_error, ime_status);
-            show_dialog(message);
-            return 0;
-        }
+    char url[URL_CAP] = {0};
+    if(sceSysmoduleLoadModule(ORBIS_SYSMODULE_MESSAGE_DIALOG)<0 ||
+       sceCommonDialogInitialize()<0) return 1;
+    if(!load_url(url,sizeof(url))) {
+        show_message("PS4 Direct PKG v1.0\n\n"
+                     "Falta una URL valida en:\n"
+                     "/data/ps4direct_url.txt\n\n"
+                     "Esta version permite descargar PKG homebrew "
+                     "autorizados y reanudarlos.\n\n"
+                     "No instala juegos ni usa NovaPS.");
+        return 0;
     }
-
-    test_url(url, message, sizeof(message));
-    show_dialog(message);
+    download_pkg(url);
     return 0;
 }
