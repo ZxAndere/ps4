@@ -7,6 +7,7 @@
 #include <ctype.h>
 #include <sys/types.h>
 
+#include "installer.h"
 #include <orbis/CommonDialog.h>
 #include <orbis/Http.h>
 #include <orbis/MsgDialog.h>
@@ -16,8 +17,8 @@
 #include <orbis/libkernel.h>
 
 /*
- * PS4 Direct PKG v1.0 - experimental download-only homebrew.
- * No system package registration, no NovaPS, no PC proxy.
+ * PS4 Direct PKG v1.1 - experimental download + confirmed BGFT install request.
+ * Uses BGFT to request a local installation only after user confirmation. No NovaPS or PC.
  *
  * The URL is read from /data/ps4direct_url.txt.
  * Existing partial downloads are resumed only when the URL hash
@@ -294,6 +295,75 @@ static bool content_range(int request, uint64_t *begin,
     return true;
 }
 
+
+/* Validate a completed file against the URL-bound download state.
+ * A PKG magic number by itself is insufficient to trust a download.
+ * Does not provide full cryptographic verification. */
+static bool completed_file_matches_state(const char *pkg_path,
+                                         const char *state_path, uint64_t url_hash)
+{
+    uint64_t disk=0, recorded_hash=0, recorded_len=0;
+    if(!file_size(pkg_path,&disk) ||
+       !load_state(state_path,&recorded_hash,&recorded_len))
+        return false;
+    if(recorded_hash!=url_hash || recorded_len!=disk ||
+       disk<0x100 || disk>MAX_DOWNLOAD_BYTES)
+        return false;
+    return check_existing_pkg_header(pkg_path);
+}
+
+static void offer_install(const char *pkg_path,
+                          const char *state_path,
+                          const char *url)
+{
+    char msg[800];
+    if(!completed_file_matches_state(pkg_path,state_path,hash_url(url))) {
+        show_message("Instalacion bloqueada: el PKG no coincide\n"
+                     "con el tamano y el registro de descarga.\n\n"
+                     "Conservamos el archivo. No se ha modificado.");
+        return;
+    }
+    uint64_t size=0;
+    if(!file_size(pkg_path,&size)) return;
+    snprintf(msg,sizeof(msg),
+        "Descarga finalizada (%llu MiB).\n\n"
+        "Quieres solicitar al sistema la instalacion\n"
+        "de este PKG homebrew autorizado?\n\n"
+        "No se desinstalara ninguna aplicacion.\n"
+        "No se borrara el PKG guardado.\n\n"
+        "Si aparece instalado, revisa Notificaciones.",
+        (unsigned long long)((size+1024*1024-1)/(1024*1024)));
+    if(!confirm_message(msg)) {
+        show_message("PKG conservado en /data/.\n\n"
+                     "Puedes volver a abrir esta aplicacion\n"
+                     "para solicitar la instalacion mas tarde.");
+        return;
+    }
+
+    InstallResult ir={0};
+    int ret=install_local_pkg(pkg_path,"BREW00978",&ir);
+    if(ret==0) {
+        snprintf(msg,sizeof(msg),
+            "Tarea de instalacion INICIADA.\n\n"
+            "Titulo: %s\n"
+            "Tarea BGFT: %d\n\n"
+            "Comprueba el resultado en Notificaciones.\n"
+            "Todavia no se ha confirmado que termine.\n\n"
+            "El archivo original NO se ha borrado.",
+            ir.title_id,ir.task_id);
+    } else {
+        snprintf(msg,sizeof(msg),
+            "No se pudo iniciar la instalacion.\n\n"
+            "Etapa: %d\nError: 0x%08X\n"
+            "Titulo: %.16s\n\n"
+            "El PKG sigue guardado.\n"
+            "No se borro ninguna aplicacion.\n"
+            "Si ya esta instalado, no se sobrescribe.",
+            ir.stage,(unsigned int)ir.raw_error,ir.title_id);
+    }
+    show_message(msg);
+}
+
 static void cleanup_http(int request, int conn, int tpl,
                          int http, int ssl, int net)
 {
@@ -319,9 +389,7 @@ static void download_pkg(const char *url)
 
     create_paths(url,part,final,state);
     if(file_exists(final)) {
-        show_message("Ya existe un PKG completado con esta URL.\n"
-                     "No lo sobrescribire.\n\n"
-                     "Gestiona el PKG guardado en /data/.");
+        offer_install(final,state,url);
         return;
     }
     resumed=file_size(part,&local_bytes);
@@ -348,7 +416,7 @@ static void download_pkg(const char *url)
     if(ssl<0) {error=4;goto end;}
     http=sceHttpInit(net,ssl,1024*1024);
     if(http<0) {error=5;goto end;}
-    tpl=sceHttpCreateTemplate(http,"PS4Direct/1.0",ORBIS_HTTP_VERSION_1_1,1);
+    tpl=sceHttpCreateTemplate(http,"PS4Direct/1.1",ORBIS_HTTP_VERSION_1_1,1);
     if(tpl<0) {error=6;goto end;}
     conn=sceHttpCreateConnectionWithURL(tpl,url,true);
     if(conn<0) {error=7;goto end;}
@@ -393,7 +461,7 @@ static void download_pkg(const char *url)
         "Ya guardado: %llu MiB\n"
         "Destino: /data/ps4direct_...\n\n"
         "Necesitas suficiente espacio libre.\n"
-        "No lo instalara automaticamente.",
+        "Instalacion posterior solo si confirmas.",
         resumed?"Reanudar":"Descargar",
         (unsigned long long)((total+1024*1024-1)/(1024*1024)),
         (unsigned long long)(local_bytes/(1024*1024)));
@@ -453,11 +521,14 @@ end:
         snprintf(summary,sizeof(summary),
             "Descarga completada en la PS4!\n\n"
             "Total: %llu MiB\n"
-            "Archivo: %s\n\n"
-            "Es un PKG descargado, NO instalado.\n"
-            "El sistema de instalacion aun esta pendiente.",
+            "Archivo: %.230s\n\n"
+            "A continuacion puedes solicitar\n"
+            "su instalacion en la consola.",
             (unsigned long long)((total+1024*1024-1)/(1024*1024)),
             final);
+        show_message(summary);
+        offer_install(final,state,url);
+        return;
     } else if(cancelled) {
         snprintf(summary,sizeof(summary),
             "Operacion cancelada.\n\n"
@@ -484,12 +555,12 @@ int main(void)
     if(sceSysmoduleLoadModule(ORBIS_SYSMODULE_MESSAGE_DIALOG)<0 ||
        sceCommonDialogInitialize()<0) return 1;
     if(!load_url(url,sizeof(url))) {
-        show_message("PS4 Direct PKG v1.0\n\n"
+        show_message("PS4 Direct PKG v1.1\n\n"
                      "Falta una URL valida en:\n"
                      "/data/ps4direct_url.txt\n\n"
                      "Esta version permite descargar PKG homebrew "
                      "autorizados y reanudarlos.\n\n"
-                     "No instala juegos ni usa NovaPS.");
+                     "Una vez completado, permite solicitar\n"\n                     "la instalacion mediante BGFT.");
         return 0;
     }
     download_pkg(url);

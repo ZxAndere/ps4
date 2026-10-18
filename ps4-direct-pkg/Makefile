@@ -1,19 +1,22 @@
-TITLE := PS4 Direct PKG Downloader 1.0
-VERSION := 1.00
-TITLE_ID := BREW00977
-CONTENT_ID := IV0000-BREW00977_00-PS4DIRECTDL10000
+TITLE := PS4 Direct PKG Downloader Installer 1.1
+VERSION := 1.10
+TITLE_ID := BREW00978
+CONTENT_ID := IV0000-BREW00978_00-PS4DIRECTDL11000
 TOOLCHAIN := $(OO_PS4_TOOLCHAIN)
-LIBS := -lc -lkernel -lSceNet -lSceSsl -lSceHttp -lSceSysmodule -lSceCommonDialog -lSceMsgDialog
+LIBS := -lc -lkernel -lSceNet -lSceSsl -lSceHttp -lSceSysmodule -lSceCommonDialog -lSceMsgDialog -lSceAppInstUtil -lSceBgft
 CFLAGS := --target=x86_64-pc-freebsd12-elf -fPIC -funwind-tables -c -isysroot $(TOOLCHAIN) -isystem $(TOOLCHAIN)/include
 LDFLAGS := -m elf_x86_64 -pie --script $(TOOLCHAIN)/link.x --eh-frame-hdr -L$(TOOLCHAIN)/lib $(LIBS) $(TOOLCHAIN)/lib/crt1.o
 SDKTOOLS := $(TOOLCHAIN)/bin/linux
 .PHONY: all clean
 all: $(CONTENT_ID).pkg
-build/main.o: native/main.c
+build/main.o: native/main.c native/installer.h
 	mkdir -p build
 	clang $(CFLAGS) -o $@ $<
-build/ps4direct.elf: build/main.o
-	ld.lld $< -o $@ $(LDFLAGS)
+build/installer.o: native/installer.c native/installer.h
+	mkdir -p build
+	clang $(CFLAGS) -o $@ $<
+build/ps4direct.elf: build/main.o build/installer.o
+	ld.lld $^ -o $@ $(LDFLAGS)
 eboot.bin: build/ps4direct.elf
 	$(SDKTOOLS)/create-fself -in=$< -out=build/ps4direct.oelf --eboot $@ --paid 0x3800000000000011
 sce_sys/param.sfo: Makefile

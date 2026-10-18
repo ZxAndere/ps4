@@ -1,26 +1,29 @@
-# PS4 Direct PKG — Downloader v1.0 (experimental)
+# PS4 Direct PKG v1.1 — Descarga + instalacion experimental
 
-Independent native PS4 homebrew downloader. Runs on console without NovaPS or a Windows proxy.
+Este proyecto compila un PKG nativo para PS4 que funciona sin NovaPS ni PC encendido. Es una prueba para paquetes **homebrew autorizados**, no un gestor de enlaces a juegos sin licencia.
 
-**Preliminary; needs console hardware testing. Only download packages you have permission to use. This app does NOT register or install PS4 PKGs.**
+## Funcionamiento
 
-## How to use
-1. Create ASCII/UTF-8 text file at /data/ps4direct_url.txt containing one direct HTTP(S) URL.
-2. Run PS4 Direct PKG v1.0 (unique Title ID BREW00977).
-3. Review the expected size and storage warning; select YES to download.
-4. A native progress bar appears. Cancel to preserve the partial file.
-5. On completion, find the PKG under /data/ps4direct_<filename>_<hash>.pkg.
+1. Mantener `/data/ps4direct_url.txt` con una URL HTTP(S) de un PKG permitido.
+2. Iniciar v1.1; descargar a `/data/*.part` o reanudar si hay una descarga parcial compatible.
+3. Al terminar se guarda como `/data/*.pkg` y se pide confirmacion adicional.
+4. Si aceptas, intenta registrar una tarea de instalacion local mediante **BGFT**, con ruta del sistema `/user/data/*.pkg`.
+5. Muestra el ID de tarea y los errores. Que la tarea haya comenzado **no significa** que la instalacion haya terminado; verificar en Notificaciones de PS4.
 
-Files are saved to *.part until fully received, with *.state recording the URL hash and expected total. Restart app with the same URL to resume; server must return HTTP 206 with the matching Content-Range start/total. Unexpected 200 on resumption and redirects/errors are rejected without corrupting the partial file.
+Si el archivo ya estaba descargado, se puede reabrir v1.1 para solicitar su instalacion, **sin volver a descargarlo**.
 
-- Accepts HTTP 200 initial request with Content-Length or HTTP 206 with valid Content-Range.
-- Memory use is bounded to a 64 KiB transfer buffer; 16 GiB per-file safety limit.
-- Certificate verification is not bypassed. HTTPS support depends on PS4 SSL libraries and destination server.
-- The app **does not pre-check available disk space** (filesystem APIs can be unreliable on PS4). Check free space before confirming; a full disk will cause a write failure and preserve the partial file.
-- Existing completed files are never overwritten. No auto deletion.
-- Downloading a PKG does **not** ensure it is valid or compatible with PS4. Only an authorized homebrew source should be used.
-- Range/content verification checks file size and PKG signature, not a cryptographic hash of the entire file. Independent checksum verification remains future work.
-- Keyboard input postponed; uses the previously working file input.
-- Does not change previous v0.7–v0.9 installations.
+## Medidas
 
-Build: GitHub Actions with OpenOrbis v0.5.4.
+- Nunca desinstala versiones existentes, ni reemplaza el propio instalador.
+- No borra el PKG original.
+- No intenta instalar archivos `.part`.
+- Verifica cabecera, tamanos, coincidencia de URL con el registro local; tambien verifica encabezado y titulo usando APIs nativas.
+- Requiere confirmacion explicita para descargar e instalar.
+- Bloquea instalacion si un titulo ya esta instalado.
+- Necesita **espacio suficiente tanto para el PKG almacenado como para que el sistema lo instale**. No comprueba automaticamente espacio libre.
+- Sin comprobacion criptografica del paquete completo. Usa solamente fuentes homebrew confiables.
+- No se ha probado v1.1 en hardware; build correcto no asegura que la tarea BGFT funcione.
+
+## Compilacion
+
+Rama `ps4-direct-pkg-experimental` en ZxAndere/ps4, GitHub Actions, OpenOrbis v0.5.4. Identificador independiente `BREW00978`; no modifica v1.0 ni versiones previas.
