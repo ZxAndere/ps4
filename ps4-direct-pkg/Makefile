@@ -1,9 +1,9 @@
-TITLE := PS4 Direct PKG Diagnostic
-VERSION := 0.70
-TITLE_ID := BREW00974
-CONTENT_ID := IV0000-BREW00974_00-PS4DIRECTDIAG070
+TITLE := PS4 Direct PKG Diagnostic 0.8
+VERSION := 0.80
+TITLE_ID := BREW00975
+CONTENT_ID := IV0000-BREW00975_00-PS4DIRECTDIAG080
 TOOLCHAIN := $(OO_PS4_TOOLCHAIN)
-LIBS := -lc -lkernel -lSceNet -lSceSsl -lSceHttp -lSceSysmodule -lSceCommonDialog -lSceMsgDialog
+LIBS := -lc -lkernel -lSceNet -lSceSsl -lSceHttp -lSceSysmodule -lSceCommonDialog -lSceMsgDialog -lSceImeDialog -lSceUserService
 CFLAGS := --target=x86_64-pc-freebsd12-elf -fPIC -funwind-tables -c -isysroot $(TOOLCHAIN) -isystem $(TOOLCHAIN)/include
 LDFLAGS := -m elf_x86_64 -pie --script $(TOOLCHAIN)/link.x --eh-frame-hdr -L$(TOOLCHAIN)/lib $(LIBS) $(TOOLCHAIN)/lib/crt1.o
 SDKTOOLS := $(TOOLCHAIN)/bin/linux
