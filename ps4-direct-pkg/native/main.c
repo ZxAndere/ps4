@@ -560,7 +560,8 @@ int main(void)
                      "/data/ps4direct_url.txt\n\n"
                      "Esta version permite descargar PKG homebrew "
                      "autorizados y reanudarlos.\n\n"
-                     "Una vez completado, permite solicitar\n"\n                     "la instalacion mediante BGFT.");
+                     "Una vez completado, permite solicitar\n"
+                     "la instalacion mediante BGFT.");
         return 0;
     }
     download_pkg(url);
