@@ -49,7 +49,7 @@ jobs:
         run: |
           python3 - <<'PY'
           from pathlib import Path
-          p=Path('IV0000-BREW00977_00-PS4DIRECTDOWNLOAD.pkg')
+          p=Path('IV0000-BREW00977_00-PS4DIRECTDL10000.pkg')
           assert p.exists()
           assert p.open('rb').read(4)==bytes.fromhex('7f434e54')
           print(p, p.stat().st_size)

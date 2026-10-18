@@ -1,7 +1,7 @@
 TITLE := PS4 Direct PKG Downloader 1.0
 VERSION := 1.00
 TITLE_ID := BREW00977
-CONTENT_ID := IV0000-BREW00977_00-PS4DIRECTDOWNLOAD
+CONTENT_ID := IV0000-BREW00977_00-PS4DIRECTDL10000
 TOOLCHAIN := $(OO_PS4_TOOLCHAIN)
 LIBS := -lc -lkernel -lSceNet -lSceSsl -lSceHttp -lSceSysmodule -lSceCommonDialog -lSceMsgDialog
 CFLAGS := --target=x86_64-pc-freebsd12-elf -fPIC -funwind-tables -c -isysroot $(TOOLCHAIN) -isystem $(TOOLCHAIN)/include
